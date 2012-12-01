@@ -12,6 +12,8 @@ define(['jquery', 'underscore', 'backbone', 'socket', 'views/navbar', 'views/log
       routes: {
         'login': 'login',
         'timeline': 'timeline',
+        'note/create': 'createNote',
+        'note/:id/remove': 'removeNote',
         '*actions': 'default'
       },
       login: function() {
@@ -19,12 +21,21 @@ define(['jquery', 'underscore', 'backbone', 'socket', 'views/navbar', 'views/log
         this.loginView.render();
       },
       timeline: function() {
-        socket.emit('timelineContent', {FBId: '5625', token: '23456'});
         this.navbarView.render('timeline');
-        this.timelineView.test();
+        this.timelineView.render();
+      },
+      createNote: function() {
+        if (moble.user)
+          socket.emit('createNote', moble.user.toJSON());
+        this.navigate('timeline', true);
+      },
+      removeNote: function(_id) {
+        if (moble.user)
+          socket.emit('removeNote', $.extend(moble.user.toJSON(), {note_id: _id}));
+        this.navigate('timeline', true);
       },
       default: function() {
-        this.navigate('login', {trigger: true});
+        this.navigate('login', true);
       }
     });
 

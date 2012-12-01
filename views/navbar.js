@@ -21,7 +21,6 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'facebook', 'text!temp
       el: '#navbar',
       template: Handlebars.compile($('#tmpl-navbar', tmpl).html()),
       events: {
-        'click a.login': 'login',
         'click a.logout': 'logout'
       },
       initialize: function() {
@@ -35,9 +34,6 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'facebook', 'text!temp
         }
       },
       
-      login: function() {
-        console.log('hihihihihihi');
-      },
       logout: function() {
         FB.logout();
       }

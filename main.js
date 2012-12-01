@@ -1,5 +1,7 @@
 
 var moble = moble || {};
+moble.user = null;
+moble.server = '127.0.0.1:8080';
 
 require.config({
   paths: {

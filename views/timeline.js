@@ -1,19 +1,20 @@
 
-define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/timeline.html'],
-  function($, _, Backbone, Handlebars, tmpl) {
+define(['jquery', 'underscore', 'backbone', 'handlebars', 'collections/notes', 'text!templates/timeline.html'],
+  function($, _, Backbone, Handlebars, Notes, tmpl) {
 
     var TimelineView = Backbone.View.extend({
       el: '#content',
-      collection: [{name: 'note 1'}, {name: 'note 2'}],
+      collection: null,
       template: Handlebars.compile($('#tmpl-timeline', tmpl).html()),
       initialize: function() {
       },
-      render: function(collection) {
-        this.collection = collection || this.collection;
-        this.$el.html( this.template(this.collection) );
+      render: function() {
+        var data = (this.collection) ? this.collection.toJSON() : [];
+        this.$el.html(this.template(data));
       },
-      test: function() {
-        console.log(App.user);
+      setCollection: function(data) {
+        this.collection = new Notes(data);
+        this.render();
       }
     });
 

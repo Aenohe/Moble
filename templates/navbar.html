@@ -2,19 +2,31 @@
 <div>
   
   <script id="tmpl-login-navbar" type="text/x-handlebars">
-    <li><a class="login">Login</a></li>
+    <ul class="nav" style="cursor: pointer">
+      <li>
+        <a class="login"><i class="icon-user icon-white"></i> Login</a>
+      </li>
+    </ul>
   </script>
 
   <script id="tmpl-timeline-navbar" type="text/x-handlebars">
-    <li><a class="logout">Logout</a></li>
+    <ul class="nav">
+      <li>
+        <a class="logout"><i class="icon-off icon-white"></i> Logout</a>
+      </li>
+    </ul>
+    <ul class="nav pull-right">
+      <li><a class="create" href="#/note/create"><i class="icon-plus icon-white"></i> Create</a></li>
+      <li><a class="share" href="#/notes/share"><i class="icon-share icon-white"></i> Share</a></li>
+      <li><a class="remove" href="#/notes/remove"><i class="icon-minus icon-white"></i> Remove</a></li>
+    </ul>
   </script>
 
   <script id="tmpl-navbar" type="text/x-handlebars">
     <div class="navbar-inner">
       <div class="container">
         <a href="#" class="brand">Moble</a>
-        <ul id="nav" class="nav" style="cursor: pointer">
-        </ul>
+        <div id="nav" style="cursor: pointer"></div>
       </div>
     </div>
   </script>
