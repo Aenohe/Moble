@@ -1,6 +1,6 @@
 
-define(['jquery', 'underscore', 'backbone', 'views/navbar', 'views/login', 'views/timeline'],
-  function($, _, Backbone, NavbarView, LoginView, TimelineView) {
+define(['jquery', 'underscore', 'backbone', 'socket', 'views/navbar', 'views/login', 'views/timeline'],
+  function($, _, Backbone, socket, NavbarView, LoginView, TimelineView) {
 
     var Router = Backbone.Router.extend({
       initialize: function() {
@@ -19,8 +19,9 @@ define(['jquery', 'underscore', 'backbone', 'views/navbar', 'views/login', 'view
         this.loginView.render();
       },
       timeline: function() {
+        socket.emit('timelineContent', {FBId: '5625', token: '23456'});
         this.navbarView.render('timeline');
-        this.timelineView.render();
+        this.timelineView.test();
       },
       default: function() {
         this.navigate('login', {trigger: true});

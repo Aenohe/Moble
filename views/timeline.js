@@ -7,11 +7,13 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/timeli
       collection: [{name: 'note 1'}, {name: 'note 2'}],
       template: Handlebars.compile($('#tmpl-timeline', tmpl).html()),
       initialize: function() {
-
       },
       render: function(collection) {
         this.collection = collection || this.collection;
         this.$el.html( this.template(this.collection) );
+      },
+      test: function() {
+        console.log(App.user);
       }
     });
 
