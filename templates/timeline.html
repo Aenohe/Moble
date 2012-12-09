@@ -2,17 +2,16 @@
 <div>
   <script id="tmpl-timeline" type="text/x-handlebars">
     <ul id="timeline">
-      {{#each this}}
-        <li class="note well">
-          <ul class="actions">
-            <li><a href="#/note/{{_id}}/share"><i class="icon-share-alt"></i></a></li>
-            <li><a href="#/note/{{_id}}/remove"><i class="icon-remove"></i></a></li>
-          </ul>
-          <h4>{{name}}</h4>
-          <p>{{description}}</p>
-          <p>{{updated_date}}</p>
-        </li>
-      {{/each}}
     </ul>
+  </script>
+
+  <script id="tmpl-note" type="text/x-handlebars">
+    <ul class="actions">
+      <li><a href="#/note/{{_id}}/share"><i class="icon-share-alt"></i></a></li>
+      <li><a class="remove"><i class="icon-remove"></i></a></li>
+    </ul>
+    <h4>{{name}}</h4>
+    <p>{{description}}</p>
+    <p>{{updated_date}}</p>    
   </script>
 </div>
