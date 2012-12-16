@@ -1,0 +1,37 @@
+
+<div>
+
+  <script id="navbar" type="text/x-handlebars">
+    <li><a id="back" href="#timeline"><i class="icon-arrow-left icon-white"></i> Back</a></li>
+  </script>
+
+  <script id="navbar-right" type="text/x-handlebars">
+    <li><a id="remove" href="#"><i class="icon-minus icon-white"></i> Remove</a></li>
+  </script>
+
+  <script id="content" type="text/x-handlebars">
+    <h1>Moble: Edit {{_id}}</h1>
+    <form>
+      <div>
+        <div><label for="name">Name</label></div>
+        <div><input id="name" type="text" value="{{name}}" /></div>
+      </div>
+      <div>
+        <div><label for="description">Description</label></div>
+        <div><textarea id="description">{{description}}</textarea></div>
+      </div>
+      <div>
+        <div><label for="quantity">Quantity</label></div>
+        <div><input id="quantity" type="number" value="{{quantity}}" /></div>
+      </div>
+      <div>
+        <div><label for="price">Price</label></div>
+        <div><input id="price" type="number" value="{{price}}" /></div>
+      </div>
+      <div>
+        <div><label for="date">Date</label></div>
+        <div><input id="date" type="date" value="{{convertTime date}}" /></div>
+      </div>
+    </form>
+  </script>
+</div>
