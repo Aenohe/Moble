@@ -1,35 +1,39 @@
 
-define(['jquery', 'underscore', 'backbone', 'facebook', 'socket', 'router', 'models/user'],
-  function($, _, Backbone, FB, socket, Router, User) {
+define(['jquery', 'underscore', 'backbone', 'router', 'models/user', 'collections/friends', 'collections/notes',
+        'facebook', 'socket'],
+  function($, _, Backbone, Router, User, Friends, Notes,
+        FB, socket) {
 
     return {
-
       initialize: function() {
-        var self = this;
+        moble.user = null;
+        moble.friends = null;
+        moble.notes = new Notes();
+        moble.router = new Router();
 
-        this.router = new Router();
         FB.init({ appId: '118094878340771' });
-
         FB.Event.subscribe('auth.statusChange', function(res) {
-          if (res.status === 'connected') {
+          if (res.status == 'connected' ) {
             var auth = { FBId: res.authResponse.userID, token: res.authResponse.accessToken };
 
             socket.emit('check_connection', auth);
             socket.emit('timelineContent', auth);
-            self.router.navigate('timeline', true);
+            moble.router.navigate('timeline', true);
           }
           else {
             moble.user = null;
-            self.router.navigate('login', true);            
+            moble.router.navigate('login', true);
           }
         });
 
         socket.on('basics', function(d) {
           moble.user = new User(d);
         });
-
-        socket.on('timelineContent', function(data) {
-          self.router.timelineView.setCollection(data);
+        socket.on('timelineContent', function(d) {
+          moble.notes.update(d);
+        });
+        socket.on('createNote', function(d) {
+          moble.notes.add(d);
         });
       }
     }

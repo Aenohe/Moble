@@ -2,10 +2,17 @@
 define(['jquery', 'underscore', 'backbone'],
   function($, _, Backbone) {
 
-    var User = Backbone.Model.extend({
-      FBId: null,
-      token: null,
-    });
+    return Backbone.Model.extend({
+      idAttribute: "_id",
+      defaults: {
+        FBId: null,
+        token: null
+      },
+      fullName: function() {
+        var firstName = this.get('firstName') || '',
+            lastName = this.get('lastName') || '';
 
-    return User;
+        return firstName + ' ' + lastName;
+      }
+    });
   });

@@ -1,43 +1,38 @@
 
-define(['jquery', 'underscore', 'backbone', 'socket', 'views/navbar', 'views/login', 'views/timeline'],
-  function($, _, Backbone, socket, NavbarView, LoginView, TimelineView) {
+define(['jquery', 'underscore', 'backbone', 'views/login', 'views/timeline', 'views/edit'],
+  function($, _, Backbone, LoginView, TimelineView, EditView) {
 
-    var Router = Backbone.Router.extend({
-      initialize: function() {
-        this.navbarView = new NavbarView();
-        this.loginView = new LoginView();
-        this.timelineView = new TimelineView();
-        Backbone.history.start();
-      },
+    return Backbone.Router.extend({
       routes: {
         'login': 'login',
         'timeline': 'timeline',
-        'note/create': 'createNote',
-        'note/:id/remove': 'removeNote',
+        'note/create': 'create',
+        'note/:id/edit': 'edit',
         '*actions': 'default'
       },
+      initialize: function() {
+        this.loginView = new LoginView();
+        this.timelineView = new TimelineView({ collection: moble.notes });
+
+        Backbone.history.start();
+      },
       login: function() {
-        this.navbarView.render('login');
         this.loginView.render();
       },
       timeline: function() {
-        this.navbarView.render('timeline');
         this.timelineView.render();
       },
-      createNote: function() {
-        if (moble.user)
-          socket.emit('createNote', moble.user.toJSON());
-        this.navigate('timeline', true);
-      },
-      removeNote: function(_id) {
-        if (moble.user)
-          socket.emit('removeNote', $.extend(moble.user.toJSON(), {note_id: _id}));
-        this.navigate('timeline', true);
+      edit: function(id) {
+        if (this.editView)
+          this.editView.clean();
+        this.editView = new EditView({ model: moble.notes.get(id) });
+        this.editView.render();
       },
       default: function() {
-        this.navigate('login', true);
+        if (moble.user)
+          this.navigate('timeline', true);
+        else
+          this.navigate('login', true);
       }
     });
-
-    return Router;
   });
