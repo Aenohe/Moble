@@ -3,7 +3,6 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.h
   function($, _, Backbone, Handlebars, tmpl) {
 
     Handlebars.registerHelper('convertTime', function(time) {
-      console.log(time);
       var date = (time) ? new Date(time) : new Date(),
           month = ((date.getMonth() + 1 < 10) ? '0' : '') + (date.getMonth() + 1),
           day = ((date.getDate() < 10) ? '0' : '') + date.getDate();
@@ -20,8 +19,19 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.h
 
     var NavbarRight = Backbone.View.extend({
       template: Handlebars.compile($('#navbar-right', tmpl).html()),
+      events: {
+        'click #remove': 'toRemove'
+      },
       render: function() {
         this.$el.html(this.template());
+      },
+      toRemove: function() {
+        console.log(this.model);
+        this.model.removed();
+        moble.notes.remove(this.model);
+      },
+      clean: function() {
+        this.undelegateEvents();
       }
     });
 
@@ -61,7 +71,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.h
     return Backbone.View.extend({
       initialize: function() {
         this.navbar = new Navbar({ el: $('#navbar') });
-        this.navbarRight = new NavbarRight({ el: $('#navbar-right') });
+        this.navbarRight = new NavbarRight({ model: this.model, el: $('#navbar-right') });
         this.content = new Content({ model: this.model, el: $('#content') });
       },
       render: function() {
@@ -70,6 +80,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.h
         this.content.render();
       },
       clean: function() {
+        this.navbarRight.clean();
         this.content.clean();
       }
     });

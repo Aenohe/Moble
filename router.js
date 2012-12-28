@@ -20,7 +20,7 @@ define(['jquery', 'underscore', 'backbone', 'views/login', 'views/timeline', 'vi
         this.loginView.render();
       },
       timeline: function() {
-          this.timelineView.render();
+        this.timelineView.render();
       },
       edit: function(id) {
         if (this.editView)
