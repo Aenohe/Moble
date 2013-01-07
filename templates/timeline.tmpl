@@ -1,0 +1,44 @@
+
+<div>
+
+  <script id="navbar" type="text/x-handlebars">
+    
+    <li><a href="#"><i class="icon-off icon-white"></i> Logout</a></li>
+  </script>
+
+  <script id="navbar-right" type="text/x-handlebars">
+
+    <li><a href="#" id="btn_create"><i class="icon-plus icon-white"></i> Create</a></li>
+    {{#if hasSelected}}
+      <li><a href="#" id="btn_share"><i class="icon-share icon-white"></i> Share</a></li>
+      <li><a href="#" id="btn_delete"><i class="icon-remove icon-white"></i> Remove</a></li>
+    {{/if}}
+  </script>
+
+  <script id="header" type="text/x-handlebars">
+
+    <div class="navbar navbar-fixed-bottom navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+          <a href="#" class="brand">Moble: Timeline</a>
+          <ul id="navbar" class="nav"></ul>
+          <ul id="navbar-right" class="nav pull-right"></ul>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script id="note" type="text/x-handlebars">
+
+    <input type="checkbox" {{#if selected}}checked{{/if}} />
+    <div class="elem">
+      <h3>{{name}}</h3>
+    </div>
+  </script>
+
+  <script id="content" type="text/x-handlebars">
+
+    <h1>Moble: Timeline</h1>
+    <ul id="notes"></ul>
+  </script>
+</div>

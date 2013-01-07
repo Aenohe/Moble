@@ -1,0 +1,42 @@
+
+<div>
+
+  <script id="navbar" type="x-handlebars">
+    
+    <li><a href="#"><i class="icon-arrow-left icon-white"></i> Back</a></li>
+  </script>
+
+  <script id="header" type="text/x-handlebars">
+
+    <div class="navbar navbar-fixed-bottom navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+          <a href="#" class="brand">Moble: Share</a>
+          <ul id="navbar" class="nav"></ul>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script id="friend" type="text/x-handlebars">
+
+    <div class="data">
+      <img src="https://graph.facebook.com/{{FBId}}/picture" />
+      <span>{{fullName}}</span>
+    </div>
+  </script>
+
+  <script id="content" type="text/x-handlebars">
+
+    <h1>Moble: Share</h1>
+    <div>
+      <h2>Moblers:</h2>
+      <ul id="moble-friends"></ul>
+    </div>
+    <div>
+      <h2>Friends:</h2>
+      <ul id="other-friends"></ul>
+    </div>
+  </script>
+
+</div>
