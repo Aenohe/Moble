@@ -4,8 +4,13 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
 
     var NavbarView = Backbone.View.extend({
           template: Handlebars.compile($('#navbar', tmpl).html()),
+          initialize: function() {
+            _.bindAll(this, 'render');
+
+            this.model.bind('change', this.render);
+          },
           render: function() {
-            this.$el.html(this.template());
+            this.$el.html(this.template(this.model.toJSON()));
           }
         }),
 
@@ -14,12 +19,13 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
           events: {
             'click #btn_create': 'createNote',
             'click #btn_share': 'shareNotes',
-            'click #btn_delete': 'removeNotes'
+            'click #btn_remove': 'removeNotes'
           },
           initialize: function() {
             _.bindAll(this, 'render');
 
-            this.collection.bind('change:selected', this.render);
+            this.collection.bind('change', this.render);
+            this.collection.bind('remove', this.render);
           },
           render: function() {
             this.$el.html(this.template({hasSelected: this.collection.hasSelected()}));
@@ -44,7 +50,7 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
           el: $('#header'),
           template: Handlebars.compile($('#header', tmpl).html()),
           initialize: function(options) {
-            this.navbarView = new NavbarView();
+            this.navbarView = new NavbarView({ model: options.user });
             this.navbarRightView = new NavbarRightView({ collection: options.notes });
           },
           render: function() {
@@ -63,7 +69,9 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
           template: Handlebars.compile($('#note', tmpl).html()),
           events: {
             'click [type="checkbox"]': 'toggleSelect',
-            'click .elem': 'toEdit'
+            'click .elem': 'toEdit',
+            'click .btn_share': 'toShare',
+            'click .btn_remove': 'toRemove'
           },
           render: function() {
             this.$el.html(this.template(this.model.toJSON()));
@@ -71,6 +79,16 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
           },
           toEdit: function() {
             moble.router.navigate('edit/' + this.model.id, true);
+            return false;
+          },
+          toShare: function() {
+            moble.router.navigate('share/' + this.model.id, true);
+            return false;
+          },
+          toRemove: function() {
+            this.model.remove();
+            this.remove();
+            return false;
           },
           toggleSelect: function() {
             this.model.toggleSelect();

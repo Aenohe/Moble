@@ -13,12 +13,11 @@ define(['//' + moble.server.address + ':' + moble.server.port + '/socket.io/sock
 
     socket.on('timelineContent', function(d) {
       moble.notes.update(d);
-      console.log(moble.notes);
-      console.log(moble.notes.selected());
     });
 
     socket.on('createNote', function(d) {
       moble.notes.add(d);
+      moble.router.navigate('edit/' + d._id, true);
     });
 
     return socket;

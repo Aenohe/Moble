@@ -57,6 +57,7 @@ define(['socket', 'jquery', 'underscore', 'backbone'],
       },
       remove: function() {
         socket.emit('removeNote', {FBId: moble.user.get('FBId'), note_id: this.id });
+        this.collection.remove(this.id);
       }
     });
   });

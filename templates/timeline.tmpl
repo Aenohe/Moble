@@ -3,15 +3,15 @@
 
   <script id="navbar" type="text/x-handlebars">
     
-    <li><a href="#"><i class="icon-off icon-white"></i> Logout</a></li>
+    <li><a href="#timeline"><i class="icon-user icon-white"></i> {{firstName}}</a></li>
   </script>
 
   <script id="navbar-right" type="text/x-handlebars">
 
-    <li><a href="#" id="btn_create"><i class="icon-plus icon-white"></i> Create</a></li>
+    <li><a href="#" id="btn_create"><i class="icon-plus icon-white"></i></a></li>
     {{#if hasSelected}}
-      <li><a href="#" id="btn_share"><i class="icon-share icon-white"></i> Share</a></li>
-      <li><a href="#" id="btn_delete"><i class="icon-remove icon-white"></i> Remove</a></li>
+      <li><a href="#" id="btn_share"><i class="icon-share icon-white"></i></a></li>
+      <li><a href="#" id="btn_remove"><i class="icon-remove icon-white"></i></a></li>
     {{/if}}
   </script>
 
@@ -30,15 +30,21 @@
 
   <script id="note" type="text/x-handlebars">
 
-    <input type="checkbox" {{#if selected}}checked{{/if}} />
-    <div class="elem">
-      <h3>{{name}}</h3>
+    <input type="checkbox" {{#if selected}}checked{{/if}} id="checkbox-{{_id}}" />
+    <label for="checkbox-{{_id}}"><span></span></label>
+    <h3 class="elem">{{name}}</h3>
+    <div class="right">
+      <ul class="actions">
+        <li><a href="#" class="btn_share"><i class="icon-share icon-white"></i></a></li>
+        <li><a href="#" class="btn_remove"><i class="icon-remove icon-white"></i></a></li>
+      </ul>
     </div>
+    <span class="clear"></span>
   </script>
 
   <script id="content" type="text/x-handlebars">
-
-    <h1>Moble: Timeline</h1>
-    <ul id="notes"></ul>
+    <div style="padding: 10px">
+      <ul id="notes"></ul>
+    </div>
   </script>
 </div>

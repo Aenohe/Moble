@@ -2,15 +2,7 @@
 define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.tmpl'],
   function($, _, Backbone, Handlebars, tmpl) {
 
-    var NavbarView = Backbone.View.extend({
-          template: Handlebars.compile($('#navbar', tmpl).html()),
-          render: function() {
-            this.$el.html(this.template());
-            return this;
-          }
-        }),
-
-        NavbarRightView = Backbone.View.extend({
+    var NavbarRightView = Backbone.View.extend({
           template: Handlebars.compile($('#navbar-right', tmpl).html()),
           render: function() {
             this.$el.html(this.template());
@@ -21,12 +13,10 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
         HeaderView = Backbone.View.extend({
           template: Handlebars.compile($('#header', tmpl).html()),
           initialize: function() {
-            this.navbarView = new NavbarView();
             this.navbarRightView = new NavbarRightView();
           },
           render: function() {
             this.$el.html(this.template());
-            this.renderSubview(this.navbarView, '#navbar');
             this.renderSubview(this.navbarRightView, '#navbar-right');
           },
           renderSubview: function(view, selector) {
