@@ -32,13 +32,16 @@
 
     <input type="checkbox" {{#if selected}}checked{{/if}} id="checkbox-{{_id}}" />
     <label for="checkbox-{{_id}}"><span></span></label>
+    <img src="https://graph.facebook.com/{{ownerId}}/picture" />
     <h3 class="elem">{{name}}</h3>
+    {{#if isOwner}}
     <div class="right">
       <ul class="actions">
         <li><a href="#" class="btn_share"><i class="icon-share icon-white"></i></a></li>
         <li><a href="#" class="btn_remove"><i class="icon-remove icon-white"></i></a></li>
       </ul>
     </div>
+    {{/if}}
     <span class="clear"></span>
   </script>
 

@@ -80,7 +80,7 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             this.model.bind('remove', this.toRemove);
           },
           render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.html(this.template( $.extend({}, this.model.toJSON(), {isOwner: (this.model.get('ownerId') == moble.user.get('FBId')) ? true : false } )));
             return this;
           },
           toEdit: function() {
