@@ -1,45 +1,50 @@
 
-define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/login.html',
-        'facebook'],
-  function($, _, Backbone, Handlebars, tmpl,
-        FB) {
+define(['facebook', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/login.tmpl'],
+  function(FB, $, _, Backbone, Handlebars, tmpl) {
 
     var Navbar = Backbone.View.extend({
-      template: Handlebars.compile($('#navbar', tmpl).html()),
-      render: function() {
-        this.$el.html(this.template());
-      }
-    });
+          template: Handlebars.compile($('#navbar', tmpl).html()),
+          render: function() {
+            this.$el.html(this.template());
+          }
+        }),
 
-    var NavbarRight = Backbone.View.extend({
-      render: function() {
-        this.$el.empty();
-      }
-    });
-
-    var Content = Backbone.View.extend({
-      template: Handlebars.compile($('#content', tmpl).html()),
-      events: {
-        'click button': 'login'
-      },
-      render: function() {
-        this.$el.html(this.template());
-      },
-      login: function() {
-        console.log('test');
-        FB.login(function(res) {}, { scope: 'email' });
-      }
-    });
+        Header = Backbone.View.extend({
+          el: $('#header'),
+          template: Handlebars.compile($('#header', tmpl).html()),
+          initialize: function() {
+            this.navbar = new Navbar();
+          },
+          render: function() {
+            this.$el.html(this.template());
+            this.renderSubview(this.navbar, '#navbar');
+          },
+          renderSubview: function(view, selector) {
+            view.setElement(this.$(selector)).render();
+          }
+        }),
+        
+        Content = Backbone.View.extend({
+          el: $('#content'),
+          template: Handlebars.compile($('#content', tmpl).html()),
+          events: {
+            'click #btn_login': 'toLogin'
+          },
+          render: function() {
+            this.$el.html(this.template());
+          },
+          toLogin: function() {
+            FB.login(function() {}, { scope: 'email' });
+          }
+        });
 
     return Backbone.View.extend({
       initialize: function() {
-        this.navbar = new Navbar({ el: $('#navbar') });
-        this.navbarRight = new NavbarRight({ el: $('#navbar-right') });
-        this.content = new Content({ el: $('#content') });
+        this.header = new Header();
+        this.content = new Content();
       },
       render: function() {
-        this.navbar.render();
-        this.navbarRight.render();
+        this.header.render();
         this.content.render();
       }
     });

@@ -1,8 +1,23 @@
 
+/* moble defines */
 var moble = {
-  server: '127.0.0.1:8080'
+  /* data */
+  user: null,
+  mobleFriends: null,
+  otherFriends: null,
+  notes: null,
+  /* server config */
+  server: {
+    address: '127.0.0.1',
+    port: '8080'
+  },
+  /* facebook */
+  facebook: {
+    appId: '118094878340771'
+  }
 };
 
+/* requirejs config */
 require.config({
   paths: {
     /* plugins */
@@ -10,14 +25,15 @@ require.config({
     /* libraries */
     jquery: '//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min',
     underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min',
-    backbone: 'libraries/backbone-0.9.9-min',  /*'//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min',*/
-    handlebars: '//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.1/handlebars.min',
+    backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.9/backbone-min',
     bootstrap: '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/bootstrap.min',
-    facebook: '//connect.facebook.net/en_US/all',
-    socketIO: '//' + moble.server + '/socket.io/socket.io',
-
-    /* modules */
-    socket: 'modules/socket'
+    // need to do it here, seems not working if directly passed into define
+    facebookSDK: '//connect.facebook.net/en_US/all',
+    handlebarsLib: '//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.1/handlebars.min',
+    /* helpers */
+    socket: 'helpers/socket',
+    facebook: 'helpers/facebook',
+    handlebars: 'helpers/handlebars'
   },
 
   shim: {
@@ -27,12 +43,13 @@ require.config({
       deps: ['jquery', 'underscore'],
       exports: 'Backbone'
     },
-    handlebars: { exports: 'Handlebars' },
-    facebook: { exports: 'FB' }
+    handlebarsLib: { exports: 'Handlebars' },
+    facebookSDK: { exports: 'FB' }
   }
 });
 
 require(['app'],
   function(app) {
+
     app.initialize();
   });

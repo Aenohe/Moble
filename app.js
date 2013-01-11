@@ -1,40 +1,31 @@
 
-define(['jquery', 'underscore', 'backbone', 'router', 'models/user', 'collections/friends', 'collections/notes',
-        'facebook', 'socket'],
-  function($, _, Backbone, Router, User, Friends, Notes,
-        FB, socket) {
+define(['socket', 'jquery', 'underscore', 'backbone', 'router', 'models/user.js', 'collections/friends', 'collections/notes'],
+  function(socket, $, _, Backbone, Router, User, Friends, Notes) {
 
     return {
       initialize: function() {
-        moble.user = null;
-        moble.friends = null;
+        moble = _.extend(moble, Backbone.Events);
+        moble.user = new User();
+        moble.mobleFriends = new Friends();
+        moble.otherFriends = new Friends();
         moble.notes = new Notes();
         moble.router = new Router();
 
-        FB.init({ appId: '118094878340771' });
-        FB.Event.subscribe('auth.statusChange', function(res) {
-          if (res.status == 'connected' ) {
-            var auth = { FBId: res.authResponse.userID, token: res.authResponse.accessToken };
-
-            socket.emit('check_connection', auth);
-            socket.emit('timelineContent', auth);
-            moble.router.navigate('timeline', true);
-          }
-          else {
-            moble.user = null;
-            moble.router.navigate('login', true);
-          }
+        moble.on('user:check_connection', function(auth) {
+          socket.emit('check_connection', auth);
         });
 
-        socket.on('basics', function(d) {
-          moble.user = new User(d);
+        moble.on('user:connected', function() {
+          socket.emit('timelineContent', moble.user.toJSON());
+          moble.router.navigate('timeline', true);
         });
-        socket.on('timelineContent', function(d) {
-          moble.notes.update(d);
+
+        moble.on('user:disconnect', function() {
+          moble.router.navigate('login', true);
         });
-        socket.on('createNote', function(d) {
-          moble.notes.add(d);
-        });
+
+        Backbone.history.start();
+        moble.router.navigate('login', true);
       }
-    }
+    };
   });

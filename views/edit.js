@@ -1,87 +1,91 @@
 
-define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.html'],
+define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.tmpl'],
   function($, _, Backbone, Handlebars, tmpl) {
 
-    Handlebars.registerHelper('convertTime', function(time) {
-      var date = (time) ? new Date(time) : new Date(),
-          month = ((date.getMonth() + 1 < 10) ? '0' : '') + (date.getMonth() + 1),
-          day = ((date.getDate() < 10) ? '0' : '') + date.getDate();
+    var NavbarRightView = Backbone.View.extend({
+          template: Handlebars.compile($('#navbar-right', tmpl).html()),
+          render: function() {
+            this.$el.html(this.template());
+            return this;
+          }
+        }),
 
-      return date.getFullYear() + '-' + month + '-' + day;
-    });
+        HeaderView = Backbone.View.extend({
+          template: Handlebars.compile($('#header', tmpl).html()),
+          initialize: function() {
+            this.navbarRightView = new NavbarRightView();
+          },
+          render: function() {
+            this.$el.html(this.template());
+            this.renderSubview(this.navbarRightView, '#navbar-right');
+          },
+          renderSubview: function(view, selector) {
+            view.setElement(this.$(selector)).render();
+          }
+        }),
 
-    var Navbar = Backbone.View.extend({
-      template: Handlebars.compile($('#navbar', tmpl).html()),
-      render: function() {
-        this.$el.html(this.template());
-      }
-    });
+        FormView = Backbone.View.extend({
+          template: Handlebars.compile($('#form', tmpl).html()),
+          events: {
+            'blur #name': 'updateName',
+            'blur #description': 'updateDescription',
+            'blur #quantity': 'updateQuantity',
+            'blur #price': 'updatePrice',
+            'blur #date': 'updateDate'
+          },
+          render: function() {
+            this.$el.html(this.template(this.model.toJSON()));
+            return this;
+          },
+          updateName: function(e) {
+            this.model.set('name', $(e.currentTarget).val());
+          },
+          updateDescription: function(e) {
+            this.model.set('description', $(e.currentTarget).val());
+          },
+          updateQuantity: function(e) {
+            this.model.set('quantity', $(e.currentTarget).val());
+          },
+          updatePrice: function(e) {
+            this.model.set('price', $(e.currentTarget).val());
+          },
+          updateDate: function(e) {
+            this.model.set('date', new Date($(e.currentTarget).val()).getTime());
+          },
+          clean: function() {
+            this.undelegateEvents();
+            this.$el.empty();
+          }
+        });
 
-    var NavbarRight = Backbone.View.extend({
-      template: Handlebars.compile($('#navbar-right', tmpl).html()),
-      events: {
-        'click #remove': 'toRemove'
-      },
-      render: function() {
-        this.$el.html(this.template());
-      },
-      toRemove: function() {
-        console.log(this.model);
-        this.model.removed();
-        moble.notes.remove(this.model);
-      },
-      clean: function() {
-        this.undelegateEvents();
-      }
-    });
-
-    var Content = Backbone.View.extend({
-      template: Handlebars.compile($('#content', tmpl).html()),
-      events: {
-        'blur #name': 'updateName',
-        'blur #description': 'updateDescription',
-        'blur #quantity': 'updateQuantity',
-        'blur #price': 'updatePrice',
-        'blur #date': 'updateDate'
-      },
-      render: function() {
-        this.$el.html(this.template(this.model.toJSON()));
-      },
-      updateName: function(e) {
-        this.model.set('name', $(e.currentTarget).val());
-      },
-      updateDescription: function(e) {
-        this.model.set('description', $(e.currentTarget).val());
-      },
-      updateQuantity: function(e) {
-        this.model.set('quantity', $(e.currentTarget).val());
-      },
-      updatePrice: function(e) {
-        this.model.set('price', $(e.currentTarget).val());
-      },
-      updateDate: function(e) {
-        this.model.set('date', new Date($(e.currentTarget).val()).getTime());
-      },
-      clean: function() {
-        this.undelegateEvents();
-        this.$el.empty();
-      }
-    });
+        ContentView = Backbone.View.extend({
+          template: Handlebars.compile($('#content', tmpl).html()),
+          initialize: function() {
+          },
+          render: function(note) {
+            this.$el.html(this.template());
+            if (this.formView)
+              this.formView.remove();
+            this.formView = new FormView({ model: note });
+            this.renderSubview(this.formView, '#form');
+          },
+          renderSubview: function(view, selector) {
+            view.setElement(this.$(selector)).render();
+          }
+        });
 
     return Backbone.View.extend({
       initialize: function() {
-        this.navbar = new Navbar({ el: $('#navbar') });
-        this.navbarRight = new NavbarRight({ model: this.model, el: $('#navbar-right') });
-        this.content = new Content({ model: this.model, el: $('#content') });
+        this.headerView = new HeaderView({ el: $('#header') });
+        this.contentView = new ContentView({ el: $('#content') });
       },
-      render: function() {
-        this.navbar.render();
-        this.navbarRight.render();
-        this.content.render();
+      render: function(note) {
+        this.headerView.render();
+        this.contentView.render(note);
       },
-      clean: function() {
-        this.navbarRight.clean();
-        this.content.clean();
+      unbind: function() {
+        this.headerView.undelegateEvents();
+        this.contentView.undelegateEvents();
       }
     });
   });

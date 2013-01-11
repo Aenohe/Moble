@@ -1,18 +1,29 @@
 
-define(['jquery', 'underscore', 'backbone'],
-  function($, _, Backbone) {
+define(['socket', 'jquery', 'underscore', 'backbone'],
+  function(socket, $, _, Backbone) {
 
     return Backbone.Model.extend({
       idAttribute: "_id",
       defaults: {
-        FBId: null,
-        token: null
+        selected: false
       },
-      fullName: function() {
-        var firstName = this.get('firstName') || '',
-            lastName = this.get('lastName') || '';
-
-        return firstName + ' ' + lastName;
+      selected: function() {
+        return this.get('selected');
+      },
+      select: function() {
+        this.set('selected', true);
+      },
+      unselect: function() {
+        this.set('selected', false);
+      },
+      toggleSelect: function() {
+        this.set('selected', !this.get('selected'));
+      },
+      connected: function() {
+        return this.get('FBId') ? true : false;
+      },
+      invite: function() {
+        socket.emit('invitation', {FBId: moble.user.get('FBId'), FBId_invit: this.id });
       }
     });
   });
