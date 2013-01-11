@@ -1,7 +1,7 @@
 
 define(['//' + moble.server.address + ':' + moble.server.port + '/socket.io/socket.io.js'],
   function(io) {
-
+    
     var socket = io.connect(moble.server.address + ':' + moble.server.port);
 
     socket.on('check_connection', function(d) {
