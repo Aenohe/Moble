@@ -1,6 +1,6 @@
 
-define(['jquery', 'underscore', 'backbone', 'views/login', 'views/timeline', 'views/edit', 'views/share', 'views/profile'],
-  function($, _, Backbone, LoginView, TimelineView, EditView, ShareView, ProfileView) {
+define(['jquery', 'underscore', 'backbone', 'views/login', 'views/timeline', 'views/edit', 'views/share', 'views/profile', 'views/notif'],
+  function($, _, Backbone, LoginView, TimelineView, EditView, ShareView, ProfileView, NotifView) {
 
     return Backbone.Router.extend({
       routes: {
@@ -13,6 +13,7 @@ define(['jquery', 'underscore', 'backbone', 'views/login', 'views/timeline', 'vi
         "*actions": 'default'
       },
       initialize: function() {
+        this.notifView = new NotifView();
         this.loginView = new LoginView();
         this.timelineView = new TimelineView({ user: moble.user, notes: moble.notes });
         this.editView = new EditView();

@@ -20,5 +20,26 @@ define(['//' + moble.server.address + ':' + moble.server.port + '/socket.io/sock
       moble.router.navigate('edit/' + d._id, true);
     });
 
+    socket.on('onFriendsUpdated', function(d) {
+      moble.mobleFriends.update(d.mobleFriends);
+      moble.otherFriends.update(d.otherFriends);
+    });
+
+    socket.on('onNoteUpdated', function(d) {
+      moble.notes.get(d._id).set(d);
+      moble.trigger('noteUpdated', d);
+    });
+
+    socket.on('onNoteShared', function(d) {
+      moble.notes.add(d);
+      moble.trigger('noteShared', d);
+    });
+
+    socket.on('onNoteRemoved', function(d) {
+      console.log(d);
+      moble.notes.remove(moble.notes.get(d._id));
+      moble.trigger('noteRemoved', d);
+    });
+
     return socket;
   });
