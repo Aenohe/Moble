@@ -1,5 +1,5 @@
 
-define(['//' + moble.server.address + ':' + moble.server.port + '/socket.io/socket.io.js'],
+define(['socketLib'],
   function(io) {
     
     var socket = io.connect(moble.server.address + ':' + moble.server.port);
