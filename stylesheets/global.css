@@ -31,6 +31,10 @@
   }
 }
 
+.navbar-fixed-bottom .container {
+  width: auto;
+}
+
 /* Modification de Bootstrap */
 
 .navbar-inverse .navbar-inner {
@@ -67,8 +71,17 @@ body {
 }
 
 #content {
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   text-align:center;
+}
+
+.navbar #navbar-right > li > a {
+  height: 40px;
+  min-width: 40px;
+}
+
+.navbar #navbar-right > li > a > i {
+  margin-top: 11px;
 }
 
 ul {
@@ -97,8 +110,37 @@ input[type="checkbox"]:checked + label span {
 }
 
 .well {
-  background-color: #eeeeee;
-  color: #222222;
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid #aaa;
+  -webkit-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background: white;
+}
+
+.note {
+  text-align: justify;
+}
+
+.note.done {
+  background-color: #ccc;
+}
+
+.note.done h3 {
+  text-decoration: line-through;
+}
+
+.friend {
+  display: inline-block;
+}
+
+.note.selected,
+.friend.shared {
+  color: white;
+  background-color: #4671d5;
+  border: 2px solid white;
 }
 
 h3 {
@@ -118,6 +160,8 @@ h3 {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  margin: 0 15px;
+  padding: 0 5px;
 }
 
 

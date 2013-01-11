@@ -1,17 +1,15 @@
 
 <div>
 
-  <script id="navbar-right" type="x-handlebars">
-    
+  <script id="navbar-right" type="text/x-handlebars">
     <li><a href="#timeline"><i class="icon-arrow-left icon-white"></i></a></li>
   </script>
 
   <script id="header" type="text/x-handlebars">
-
     <div class="navbar navbar-fixed-bottom navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
-          <a href="#" class="brand">Moble: Edit</a>
+          <a href="#" class="brand"><img src="img/moble-icon.png" alt="Moble"/></a>
           <ul id="navbar" class="nav"></ul>
           <ul id="navbar-right" class="nav pull-right"></ul>
         </div>
@@ -20,32 +18,28 @@
   </script>
 
   <script id="form" type="text/x-handlebars">
-
     <form method="post" action="#">
       <div>
-        <div><label for="name">Name:</label></div>
-        <div><input id="name" type="text" value="{{name}}" /></div>
+<!--Voir pour l'attribut hint http://onehackoranother.com/projects/jquery/jquery-grab-bag/input-hint.html-->
+        <div><input id="name" type="text" value="{{name}}" hint="Titre"/></div>
       </div>
       <div>
-        <div><label for="description">Description:</label></div>
-        <div><textarea id="description">{{description}}</textarea></div>
+        <div><textarea id="description" hint="Commentaire">{{description}}</textarea></div>
       </div>
       <div>
-        <div><label for="quantity">Quantity:</label></div>
-        <div><input id="quantity" type="number" value="{{quantity}}" /></div>
+        <div><input id="quantity" type="text" value="{{quantity}}" hint="Quantit&eacute;"/></div>
       </div>
       <div>
-        <div><label for="price">Price:</label></div>
-        <div><input id="price" type="number" value="{{price}}" /></div>
+        <div><input id="price" type="text" value="{{price}}" hint="Prix"/></div>
       </div>
       <div>
-        <div><label for="date">Date:</label></div>
-        <div><input id="date" type="date" value="{{timeToDate date}}" /></div>
+        <div><input id="date" type="date" value="{{timeToDate date}}" hint="Date d'&eacute;ch&eacute;ance"/></div>
       </div>
     </form>
   </script>
 
   <script id="content" type="text/x-handlebars">
+	<br>
     <div id="form"></div>
     <ul id="sub-notes"></ul>
   </script>
