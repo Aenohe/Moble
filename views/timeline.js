@@ -73,6 +73,11 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             'click .btn_share': 'toShare',
             'click .btn_remove': 'toRemove'
           },
+          initialize: function() {
+            _.bindAll(this, 'render');
+
+            this.model.bind('change', this.render);
+          },
           render: function() {
             this.$el.html(this.template(this.model.toJSON()));
             return this;
