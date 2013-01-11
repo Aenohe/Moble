@@ -1,5 +1,5 @@
 
-define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/share.tmpl'],
+define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profile.tmpl'],
   function($, _, Backbone, Handlebars, tmpl) {
 
     var NavbarRightView = Backbone.View.extend({
@@ -24,37 +24,41 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/share.
             view.setElement(this.$(selector)).render();
           }
         }),
+    
+        ProfView = Backbone.View.extend({
+          template: Handlebars.compile($('#profile', tmpl).html()),
+          initialize: function() {
+            _.bindAll(this, 'render');
+
+            this.model.bind('change', this.render);
+          },
+          render: function() {
+            this.$el.html(this.template(this.model.toJSON()));
+            return this;
+          }
+        }),
 
         FriendView = Backbone.View.extend({
           tagName: 'li',
           className: 'friend well',
           template: Handlebars.compile($('#friend', tmpl).html()),
           events: {
-            'click': 'share'
-          },
-          notes: null,
-          initialize: function(options) {
-            this.notes = options.notes;
+            'click': 'invite'
           },
           render: function() {
             this.$el.html(this.template(this.model.toJSON()));
             return this;
           },
-          share: function() {
-            var self = this;
-            _.each(this.notes.selected(), function(note) {
-              note.share(self.model.get('FBId'));
-            });
+          invite: function() {
+            this.model.invite();
           }
         }),
 
         FriendsView = Backbone.View.extend({
           subViews: null,
-          notes: null,
           initialize: function(options) {
             this.subViews = [];
-            this.notes = options.notes;
-            
+          
             _.bindAll(this, 'renderFriend', 'unrenderFriend');
             this.collection.bind('add', this.renderFriend);
             this.collection.bind('remove', this.unrenderFriend);
@@ -63,7 +67,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/share.
             this.collection.each(this.renderFriend);
           },
           renderFriend: function(friend) {
-            var subView = new FriendView({ model: friend, notes: this.notes });
+            var subView = new FriendView({ model: friend });
             this.subViews.push(subView);
             this.$el.append(subView.render().el);
           },
@@ -78,10 +82,12 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/share.
           el: $('#content'),
           template: Handlebars.compile($('#content', tmpl).html()),
           initialize: function(options) {
-            this.friendsView = new FriendsView({ collection: options.friends, notes: options.notes });
+            this.profileView = new ProfView({ model: options.user });
+            this.friendsView = new FriendsView({ collection: options.friends });
           },
           render: function() {
             this.$el.html(this.template());
+            this.renderSubview(this.profileView, '#profile');
             this.renderSubview(this.friendsView, '#friends');
           },
           renderSubview: function(view, selector) {
