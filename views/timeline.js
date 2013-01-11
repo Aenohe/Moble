@@ -74,9 +74,10 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             'click .btn_remove': 'toRemove'
           },
           initialize: function() {
-            _.bindAll(this, 'render');
+            _.bindAll(this, 'render', 'toRemove');
 
             this.model.bind('change', this.render);
+            this.model.bind('remove', this.toRemove);
           },
           render: function() {
             this.$el.html(this.template(this.model.toJSON()));
@@ -119,7 +120,7 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             this.$el.append(subView.render().el);
           },
           unrenderNote: function(note) {
-            var subView = _(this.subViews).find(function(view) { return view.model === note; });
+            var subView = _(this.subViews).find(function(view) { return view.model.id == note.id; });
             this.subViews = _(this.subViews).without(subView);
             subView.remove();
           }

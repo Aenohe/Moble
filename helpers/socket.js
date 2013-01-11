@@ -36,7 +36,6 @@ define(['//' + moble.server.address + ':' + moble.server.port + '/socket.io/sock
     });
 
     socket.on('onNoteRemoved', function(d) {
-      console.log(d);
       moble.notes.remove(moble.notes.get(d._id));
       moble.trigger('noteRemoved', d);
     });

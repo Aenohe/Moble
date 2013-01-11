@@ -30,6 +30,7 @@ define(['socket', 'jquery', 'underscore', 'backbone'],
         socket.emit('updateNoteDate', {FBId: moble.user.get('FBId'), note_id: this.id, date: this.get('date') });
       },
       share: function(user) {
+        console.log(user);
         this.get('sharedTo').push(user);
         socket.emit('sharing', {FBId: moble.user.get('FBId'), note_id: this.id, FBId_invit: user});
       },
