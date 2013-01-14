@@ -132,8 +132,13 @@ input[type="checkbox"]:checked + label span {
   text-decoration: line-through;
 }
 
+ul#friends {
+  text-align: justify;
+}
+
 .friend {
   display: inline-block;
+  text-align: center;
 }
 
 .note.selected,
