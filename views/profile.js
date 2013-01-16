@@ -1,6 +1,6 @@
 
-define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profile.tmpl'],
-  function($, _, Backbone, Handlebars, tmpl) {
+define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profile.tmpl', 'facebookSDK'],
+  function($, _, Backbone, Handlebars, tmpl, FB) {
 
     var NavbarRightView = Backbone.View.extend({
           template: Handlebars.compile($('#navbar-right', tmpl).html()),
@@ -43,7 +43,9 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
           className: 'friend well',
           template: Handlebars.compile($('#friend', tmpl).html()),
           events: {
-            'click': 'invite'
+            'click': 'invite',
+            'click #invit-friends': 'inviting',
+            'click #share-friends': 'sharing'
           },
           render: function() {
             this.$el.html(this.template(this.model.toJSON()));
@@ -51,6 +53,23 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
           },
           invite: function() {
             this.model.invite();
+          },
+          inviting: function () {
+            FB.ui({method: 'apprequests',
+              message: 'Moble is great !',
+              to: moble.user.get('FBId')
+            });
+          },
+          sharing: function () {
+            FB.ui({
+              method: 'feed',
+              redirect_uri: 'http://goblish.com/Moble#profile',
+              link: 'http://goblish.com/Moble',
+              picture: 'http://fbrell.com/f8.jpg',
+              name: 'Moble',
+              caption: 'Mobling me',
+              description: 'Hey, viens c\'est bien ici !'
+            });
           }
         }),
 

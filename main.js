@@ -28,7 +28,7 @@ require.config({
     backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.9/backbone-min',
     bootstrap: '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/bootstrap.min',
     // need to do it here, seems not working if directly passed into define
-	socketLib: '//' + moble.server.address + ':' + moble.server.port + '/socket.io/socket.io.js',
+    socketLib: '//' + moble.server.address + ':' + moble.server.port + '/socket.io/socket.io',
     facebookSDK: '//connect.facebook.net/en_US/all',
     handlebarsLib: '//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.1/handlebars.min',
     /* helpers */
@@ -46,7 +46,7 @@ require.config({
     },
     handlebarsLib: { exports: 'Handlebars' },
     facebookSDK: { exports: 'FB' },
-	socketLib: { exports: 'io' }
+    socketLib: { exports: 'io' }
   }
 });
 
