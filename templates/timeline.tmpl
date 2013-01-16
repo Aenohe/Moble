@@ -2,16 +2,18 @@
 <div>
 
   <script id="navbar" type="text/x-handlebars">
-    
-    <li><a href="#profile"><i class="icon-user icon-white"></i> {{firstName}}</a></li>
+    <li><a href="#profile"><i class="icon-user icon-white"></i><br>{{firstName}}</a></li>
   </script>
 
   <script id="navbar-right" type="text/x-handlebars">
-
-    <li><a href="#" id="btn_create"><i class="icon-plus icon-white"></i></a></li>
     {{#if hasSelected}}
+      <li><a href="#" id="btn_cancelSelection"><i class="icon-step-backward icon-white"></i></a></li>
       <li><a href="#" id="btn_share"><i class="icon-share icon-white"></i></a></li>
-      <li><a href="#" id="btn_remove"><i class="icon-remove icon-white"></i></a></li>
+      <li><a href="#" id="btn_check"><i class="icon-ok icon-white"></i></a></li>
+<!--      <li><a href="#" id="btn_check"><i class="icon-remove icon-white"></i></a></li>-->
+      <li><a href="#" id="btn_remove"><i class="icon-trash icon-white"></i></a></li>
+    {{else}}
+	  <li><a href="#" id="btn_create"><i class="icon-plus icon-white"></i></a></li>
     {{/if}}
   </script>
 
@@ -20,7 +22,7 @@
     <div class="navbar navbar-fixed-bottom navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
-          <a href="#" class="brand">Moble: Timeline</a>
+          <a href="#" class="brand"><img src="img/moble-icon.png" alt="Moble"/></a>
           <ul id="navbar" class="nav"></ul>
           <ul id="navbar-right" class="nav pull-right"></ul>
         </div>
@@ -29,24 +31,27 @@
   </script>
 
   <script id="note" type="text/x-handlebars">
-
+    <div class="actions-container">
+      <ul class="actions">
+        {{#if isOwner}}
+          <li><a href="#" class="btn_share"><i class="icon-share icon-white"></i></a></li>
+        {{/if}}
+        <li><a href="#" class="btn_check"><i class="icon-ok icon-white"></i></a></li>
+<!--          <li><a href="#" class="btn_check"><i class="icon-remove icon-white"></i></a></li>-->
+        {{#if isOwner}}
+          <li><a href="#" class="btn_remove"><i class="icon-trash icon-white"></i></a></li>
+        {{/if}}
+      </ul>
+    </div>
     <input type="checkbox" {{#if selected}}checked{{/if}} id="checkbox-{{_id}}" />
     <label for="checkbox-{{_id}}"><span></span></label>
     <img src="https://graph.facebook.com/{{ownerId}}/picture" />
     <h3 class="elem">{{name}}</h3>
-    {{#if isOwner}}
-    <div class="right">
-      <ul class="actions">
-        <li><a href="#" class="btn_share"><i class="icon-share icon-white"></i></a></li>
-        <li><a href="#" class="btn_remove"><i class="icon-remove icon-white"></i></a></li>
-      </ul>
-    </div>
-    {{/if}}
     <span class="clear"></span>
   </script>
 
   <script id="content" type="text/x-handlebars">
-    <div style="padding: 10px">
+    <div style="padding: 10px 0">
       <ul id="notes"></ul>
     </div>
   </script>
