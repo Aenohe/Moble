@@ -2,11 +2,12 @@
 define(['facebookSDK'],
   function(FB) {
 
-    window.fbAsyncInit = function() {
+    FB.initialize = function() {
       FB.init({ appId: moble.facebook.appId });
 
       FB.Event.subscribe('auth.statusChange', function(res) {
         if (res.status == 'connected' ) {
+          console.log('connected!');
           var auth = { FBId: res.authResponse.userID, token: res.authResponse.accessToken };
           moble.trigger('user:check_connection', auth);
         }

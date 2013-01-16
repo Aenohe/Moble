@@ -50,8 +50,9 @@ require.config({
   }
 });
 
-require(['app'],
-  function(app) {
+require(['app', 'facebook'],
+  function(app, FB) {
 
     app.initialize();
+    FB.initialize();
   });
