@@ -36,8 +36,11 @@
         {{#if isOwner}}
           <li><a href="#" class="btn_share"><i class="icon-share icon-white"></i></a></li>
         {{/if}}
-        <li><a href="#" class="btn_check"><i class="icon-ok icon-white"></i></a></li>
-<!--          <li><a href="#" class="btn_check"><i class="icon-remove icon-white"></i></a></li>-->
+        {{#if done}}
+          <li><a href="#" class="btn_check"><i class="icon-remove icon-white"></i></a></li>
+        {{else}}
+          <li><a href="#" class="btn_check"><i class="icon-ok icon-white"></i></a></li>
+        {{/if}}
         {{#if isOwner}}
           <li><a href="#" class="btn_remove"><i class="icon-trash icon-white"></i></a></li>
         {{/if}}

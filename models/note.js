@@ -13,6 +13,7 @@ define(['socket', 'jquery', 'underscore', 'backbone'],
         this.bind('change:quantity', this.updateQuantity);
         this.bind('change:price', this.updatePrice);
         this.bind('change:date', this.updateDate);
+        this.bind('change:done', this.updateDone);
       },
       updateName: function() {
         socket.emit('updateNoteName', {FBId: moble.user.get('FBId'), note_id: this.id, name: this.get('name') });
@@ -29,8 +30,13 @@ define(['socket', 'jquery', 'underscore', 'backbone'],
       updateDate: function() {
         socket.emit('updateNoteDate', {FBId: moble.user.get('FBId'), note_id: this.id, date: this.get('date') });
       },
+      updateDone: function() {
+        if ( this.get('done') )
+          socket.emit('doNote', {FBId: moble.user.get('FBId'), note_id: this.id});
+        else
+          socket.emit('undoNote', {FBId: moble.user.get('FBId'), note_id: this.id});
+      },
       share: function(user) {
-        console.log(user);
         this.get('sharedTo').push(user);
         socket.emit('sharing', {FBId: moble.user.get('FBId'), note_id: this.id, FBId_invit: user});
       },

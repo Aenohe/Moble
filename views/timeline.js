@@ -81,6 +81,10 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
           },
           render: function() {
             this.$el.html(this.template( $.extend({}, this.model.toJSON(), {isOwner: (this.model.get('ownerId') == moble.user.get('FBId')) ? true : false } )));
+            if (this.model.get('done'))
+              this.$el.addClass('done');
+            else if (this.$el.hasClass('done'))
+              this.$el.removeClass('done');
             return this;
           },
           toEdit: function() {

@@ -31,7 +31,8 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
             'blur #description': 'updateDescription',
             'blur #quantity': 'updateQuantity',
             'blur #price': 'updatePrice',
-            'blur #date': 'updateDate'
+            'blur #date': 'updateDate',
+            'click #done': 'updateDone'
           },
           render: function() {
             this.$el.html(this.template(this.model.toJSON()));
@@ -51,6 +52,9 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
           },
           updateDate: function(e) {
             this.model.set('date', new Date($(e.currentTarget).val()).getTime());
+          },
+          updateDone: function(e) {
+            this.model.set('done', e.currentTarget.checked);
           },
           clean: function() {
             this.undelegateEvents();
