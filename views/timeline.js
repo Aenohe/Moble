@@ -17,6 +17,7 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
         NavbarRightView = Backbone.View.extend({
           template: Handlebars.compile($('#navbar-right', tmpl).html()),
           events: {
+            'click #btn_cancelSelection': 'unselectNotes',
             'click #btn_create': 'createNote',
             'click #btn_share': 'shareNotes',
             'click #btn_remove': 'removeNotes'
@@ -28,7 +29,11 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             this.collection.bind('remove', this.render);
           },
           render: function() {
-            this.$el.html(this.template({hasSelected: this.collection.hasSelected()}));
+            this.$el.html(this.template({hasSelected: this.collection.hasSelected(), allDone: this.collection.selectedAreDone()}));
+          },
+          unselectNotes: function() {
+            this.collection.select([]);
+            return false;
           },
           createNote: function() {
             socket.emit('createNote', moble.user.toJSON());
@@ -71,7 +76,8 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             'click [type="checkbox"]': 'toggleSelect',
             'click .elem': 'toEdit',
             'click .btn_share': 'toShare',
-            'click .btn_remove': 'toRemove'
+            'click .btn_remove': 'toRemove',
+            'click .btn_check': 'toggleDone'
           },
           initialize: function() {
             _.bindAll(this, 'render', 'toRemove');
@@ -81,6 +87,8 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
           },
           render: function() {
             this.$el.html(this.template( $.extend({}, this.model.toJSON(), {isOwner: (this.model.get('ownerId') == moble.user.get('FBId')) ? true : false } )));
+            (this.model.done()) ? this.$el.addClass('done') : this.$el.removeClass('done');
+            (this.model.selected()) ? this.$el.addClass('selected') : this.$el.removeClass('selected');
             return this;
           },
           toEdit: function() {
@@ -94,6 +102,10 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
           toRemove: function() {
             this.model.remove();
             this.remove();
+            return false;
+          },
+          toggleDone: function() {
+            this.model.toggleDone();
             return false;
           },
           toggleSelect: function() {
