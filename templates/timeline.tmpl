@@ -8,7 +8,9 @@
   <script id="navbar-right" type="text/x-handlebars">
     {{#if hasSelected}}
       <li><a href="#" id="btn_cancelSelection"><i class="icon-step-backward icon-white"></i></a></li>
-      <li><a href="#" id="btn_share"><i class="icon-share icon-white"></i></a></li>
+      {{#if allMine}}
+        <li><a href="#" id="btn_share"><i class="icon-share icon-white"></i></a></li>
+      {{/if}}
       {{#if allDone}}
         <li><a href="#" id="btn_check"><i class="icon-remove icon-white"></i></a></li>
       {{else}}
