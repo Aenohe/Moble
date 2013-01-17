@@ -45,7 +45,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/share.
           share: function() {
             var self = this;
             _.each(this.notes.selected(), function(note) {
-              note.share(self.model.get('FBId'));
+              note.toggleShare(self.model.get('FBId'));
             });
           }
         }),
