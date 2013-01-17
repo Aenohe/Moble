@@ -55,9 +55,11 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
           },
           doNotes: function() {
             this.collection.do(this.collection.selected());
+            return false;
           },
           undoNotes: function() {
             this.collection.undo(this.collection.selected());
+            return false;
           }
         }),
 
