@@ -4,8 +4,18 @@ define(['facebook', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!temp
 
     var Navbar = Backbone.View.extend({
           template: Handlebars.compile($('#navbar', tmpl).html()),
+          events: {
+            'click .btn_login': 'toLogin'
+          },
           render: function() {
             this.$el.html(this.template());
+          },
+          toLogin: function() {
+            window.location = "https://facebook.com/dialog/oauth?" + 
+            "client_id= 118094878340771" + 
+            "&redirect_uri=http://goblish.com/Moble/" + 
+            "&response_type=code" + 
+            "&scope=email";
           }
         }),
 
