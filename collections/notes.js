@@ -19,6 +19,9 @@ define(['jquery', 'underscore', 'backbone', 'models/note'],
       },
       hasSelected: function() {
         return this.selected().length ? true : false;
+      },
+      selectedAreDone: function() {
+        return _.(this.selected(), function(elem) { return elem.done; }
       }
     });
   });

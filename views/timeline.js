@@ -29,7 +29,7 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             this.collection.bind('remove', this.render);
           },
           render: function() {
-            this.$el.html(this.template({hasSelected: this.collection.hasSelected()}));
+            this.$el.html(this.template({hasSelected: this.collection.hasSelected(), allDone: this.collection.selectedAreDone()}));
           },
           unselectNotes: function() {
             this.collection.select([]);

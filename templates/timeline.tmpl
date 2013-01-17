@@ -9,8 +9,11 @@
     {{#if hasSelected}}
       <li><a href="#" id="btn_cancelSelection"><i class="icon-step-backward icon-white"></i></a></li>
       <li><a href="#" id="btn_share"><i class="icon-share icon-white"></i></a></li>
-      <li><a href="#" id="btn_check"><i class="icon-ok icon-white"></i></a></li>
-<!--      <li><a href="#" id="btn_check"><i class="icon-remove icon-white"></i></a></li>-->
+      {{#if allDone}}
+        <li><a href="#" id="btn_check"><i class="icon-ok icon-white"></i></a></li>
+      {{else}}
+        <li><a href="#" id="btn_check"><i class="icon-remove icon-white"></i></a></li>
+      {{/if}}
       <li><a href="#" id="btn_remove"><i class="icon-trash icon-white"></i></a></li>
     {{else}}
 	  <li><a href="#" id="btn_create"><i class="icon-plus icon-white"></i></a></li>
@@ -31,26 +34,28 @@
   </script>
 
   <script id="note" type="text/x-handlebars">
-    <div class="actions-container">
-      <ul class="actions">
-        {{#if isOwner}}
-          <li><a href="#" class="btn_share"><i class="icon-share icon-white"></i></a></li>
-        {{/if}}
-        {{#if done}}
-          <li><a href="#" class="btn_check"><i class="icon-remove icon-white"></i></a></li>
-        {{else}}
-          <li><a href="#" class="btn_check"><i class="icon-ok icon-white"></i></a></li>
-        {{/if}}
-        {{#if isOwner}}
-          <li><a href="#" class="btn_remove"><i class="icon-trash icon-white"></i></a></li>
-        {{/if}}
-      </ul>
-    </div>
-    <input type="checkbox" {{#if selected}}checked{{/if}} id="checkbox-{{_id}}" />
-    <label for="checkbox-{{_id}}"><span></span></label>
-    <img src="https://graph.facebook.com/{{ownerId}}/picture" />
-    <h3 class="elem">{{name}}</h3>
-    <span class="clear"></span>
+	  <ul class="actions">
+		{{#if isOwner}}
+		  <li><a href="#" class="btn_remove"><i class="icon-trash icon-white" onClick="return false"></i></a></li>
+		{{/if}}
+		<li><a href="#" class="btn_check">
+		{{#if done}}
+			<i class="icon-remove icon-white"></i>
+		{{else}}
+			<i class="icon-ok icon-white"></i>
+		{{/if}}
+		</a></li>
+		{{#if isOwner}}
+		  <li><a href="#" class="btn_share"><i class="icon-share icon-white"></i></a></li>
+		{{/if}}
+	  </ul>
+	<div>
+	  <input type="checkbox" {{#if selected}}checked{{/if}} id="checkbox-{{_id}}" />
+	  <label for="checkbox-{{_id}}"><span></span></label>
+	  <img src="https://graph.facebook.com/{{ownerId}}/picture" />
+      <h3 class="elem">{{name}}</h3>
+	  <span class="clear"></span>
+	</div>
   </script>
 
   <script id="content" type="text/x-handlebars">
