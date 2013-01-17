@@ -21,7 +21,10 @@ define(['jquery', 'underscore', 'backbone', 'models/note'],
         return this.selected().length ? true : false;
       },
       selectedAreDone: function() {
-        return _.(this.selected(), function(elem) { return elem.done; }
+        return _.every(this.selected(), function(elem) { return elem.done(); });
+      },
+      selectedAreMine: function() {
+        return _.every(this.selected(), function(elem) { return elem.get('ownerId') == moble.user.get('FBId'); });
       }
     });
   });
