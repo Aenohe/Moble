@@ -21,7 +21,7 @@ define(['socket', 'jquery', 'underscore', 'backbone'],
       },
       shared: function(notes) {
         var self = this;
-        return _(notes).every(function(note) { console.log(note); return _.contains(note.get('sharedTo'), self.get('FBId')); });
+        return _(notes).every(function(note) { return _.contains(note.get('sharedTo'), self.get('FBId')); });
       },
       connected: function() {
         return this.get('FBId') ? true : false;

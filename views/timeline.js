@@ -48,10 +48,12 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             return false;
           },
           removeNotes: function() {
-            _(this.collection.selected()).each(function(d) {
-              d.remove();
-            });
-            this.collection.remove(this.collection.selected());
+            if (confirm("Êtes-vous sûr ?")) {
+              _(this.collection.selected()).each(function(d) {
+                d.remove();
+              });
+              this.collection.remove(this.collection.selected());
+            }
           },
           doNotes: function() {
             this.collection.do(this.collection.selected());
@@ -92,10 +94,10 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             'click .btn_check': 'toggleDone'
           },
           initialize: function() {
-            _.bindAll(this, 'render', 'toRemove');
+            _.bindAll(this, 'render', 'unrender');
 
             this.model.bind('change', this.render);
-            this.model.bind('remove', this.toRemove);
+            this.model.bind('remove', this.unrender);
           },
           render: function() {
             this.$el.html(this.template( $.extend({}, this.model.toJSON(), {isOwner: (this.model.get('ownerId') == moble.user.get('FBId')) ? true : false } )));
@@ -112,9 +114,15 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             return false;
           },
           toRemove: function() {
+            if (confirm("Êtes-vous sûr ?")) {
+              this.model.remove();
+              this.remove();
+            }
+            return false;
+          },
+          unrender: function() {
             this.model.remove();
             this.remove();
-            return false;
           },
           toggleDone: function() {
             this.model.toggleDone();

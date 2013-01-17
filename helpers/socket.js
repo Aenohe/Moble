@@ -40,5 +40,9 @@ define(['socketLib'],
       moble.trigger('noteRemoved', d);
     });
 
+    socket.on('news', function(d) {
+      console.log('news: ' + d);
+    });
+
     return socket;
   });

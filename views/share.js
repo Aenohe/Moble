@@ -35,6 +35,9 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/share.
           notes: null,
           initialize: function(options) {
             this.notes = options.notes;
+            
+            _.bindAll(this, 'render');
+            this.notes.bind('change', this.render);
           },
           render: function() {
             this.$el.html(this.template(this.model.toJSON()));
@@ -44,9 +47,29 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/share.
           },
           share: function() {
             var self = this;
+
+            if (self.model.shared(self.notes.selected()) == true)
+              _.each(this.notes.selected(), function(note) {
+                if (note.shared(self.model.get('FBId'))) {
+                  note.unshare(self.model.get('FBId'));
+                }
+                  
+              });
+            else
+              _.each(this.notes.selected(), function(note) {
+                if (!note.shared(self.model.get('FBId'))) {
+                  note.share(self.model.get('FBId'));
+                }
+              });
+/*
             _.each(this.notes.selected(), function(note) {
-              note.toggleShare(self.model.get('FBId'));
-            });
+              if (self.model.shared(self.notes.selected()) == true)
+                note.unshare();
+
+              if (note.shared(self.model.get('FBId')) == true ||
+                  (note.shared(self.model.get('FBId')) == false && self.model.shared(self.notes.selected()) == false))
+                note.toggleShare(self.model.get('FBId'));
+            });*/
           }
         }),
 

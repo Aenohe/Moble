@@ -49,18 +49,24 @@ define(['socket', 'jquery', 'underscore', 'backbone'],
         this.set('done', (!this.get('done')) ? moble.user.get('FBId') : null);
       },
       share: function(user) {
-        this.get('sharedTo').push(user);
+        var sharedTo = _.clone(this.get('sharedTo'));
+
+        sharedTo.push(user);
+        this.set({'sharedTo': sharedTo});
         socket.emit('sharing', {FBId: moble.user.get('FBId'), note_id: this.id, FBId_invit: user});
       },
       unshare: function(user) {
-        this.set('sharedTo', _(this.get('sharedTo').without(user)));
+        this.set('sharedTo', _(this.get('sharedTo')).without(user));
         socket.emit('unsharing', {FBId: moble.user.get('FBId'), note_id: this.id, FBId_invit: user});
       },
       toggleShare: function(user) {
-        if (!_(this.get('sharedTo')).find(user))
+        if (_(this.get('sharedTo')).indexOf(user) < 0)
           this.share(user);
         else
           this.unshare(user);
+      },
+      shared: function(user) {
+        return (this.get('sharedTo').indexOf(user) < 0) ? false : true;
       },
       selected: function() {
         return this.get('selected');
