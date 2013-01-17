@@ -54,7 +54,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
             this.model.set('date', new Date($(e.currentTarget).val()).getTime());
           },
           updateDone: function(e) {
-            (e.currentTarget.checked) ? this.model.done() : this.model.undone();
+            (e.currentTarget.checked) ? this.model.do() : this.model.undo();
           },
           clean: function() {
             this.undelegateEvents();

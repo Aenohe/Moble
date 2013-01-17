@@ -17,6 +17,7 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
         NavbarRightView = Backbone.View.extend({
           template: Handlebars.compile($('#navbar-right', tmpl).html()),
           events: {
+            'click #btn_cancelSelection': 'unselectNotes',
             'click #btn_create': 'createNote',
             'click #btn_share': 'shareNotes',
             'click #btn_remove': 'removeNotes'
@@ -29,6 +30,10 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
           },
           render: function() {
             this.$el.html(this.template({hasSelected: this.collection.hasSelected()}));
+          },
+          unselectNotes: function() {
+            this.collection.select([]);
+            return false;
           },
           createNote: function() {
             socket.emit('createNote', moble.user.toJSON());
@@ -82,10 +87,8 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
           },
           render: function() {
             this.$el.html(this.template( $.extend({}, this.model.toJSON(), {isOwner: (this.model.get('ownerId') == moble.user.get('FBId')) ? true : false } )));
-            if (this.model.get('done'))
-              this.$el.addClass('done');
-            else if (this.$el.hasClass('done'))
-              this.$el.removeClass('done');
+            (this.model.done()) ? this.$el.addClass('done') : this.$el.removeClass('done');
+            (this.model.selected()) ? this.$el.addClass('selected') : this.$el.removeClass('selected');
             return this;
           },
           toEdit: function() {

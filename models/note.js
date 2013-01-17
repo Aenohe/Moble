@@ -37,9 +37,12 @@ define(['socket', 'jquery', 'underscore', 'backbone'],
           socket.emit('undoNote', {FBId: moble.user.get('FBId'), note_id: this.id});
       },
       done: function() {
+        return this.get('done');
+      },
+      do: function() {
         this.set('done', moble.user.get('FBId'));
       },
-      undone: function() {
+      undo: function() {
         this.set('done', null);
       },
       toggleDone: function() {
