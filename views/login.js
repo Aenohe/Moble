@@ -34,7 +34,11 @@ define(['facebook', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!temp
             this.$el.html(this.template());
           },
           toLogin: function() {
-            FB.login(function() {}, { scope: 'email' });
+            window.location = "https://facebook.com/dialog/oauth?" + 
+            "client_id= 118094878340771" + 
+            "&redirect_uri=http://goblish.com/Moble/" + 
+            "&response_type=code" + 
+            "&scope=email";
           }
         });
 
