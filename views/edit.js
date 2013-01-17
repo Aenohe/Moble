@@ -39,7 +39,8 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
             return this;
           },
           updateName: function(e) {
-            this.model.set('name', $(e.currentTarget).val());
+            if ($e.currentTarget.val())
+              this.model.set('name', $(e.currentTarget).val());
           },
           updateDescription: function(e) {
             this.model.set('description', $(e.currentTarget).val());
