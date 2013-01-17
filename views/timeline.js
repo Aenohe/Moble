@@ -106,6 +106,7 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
           },
           toggleDone: function() {
             this.model.toggleDone();
+            return false;
           },
           toggleSelect: function() {
             this.model.toggleSelect();
