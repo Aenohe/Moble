@@ -38,6 +38,8 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/share.
           },
           render: function() {
             this.$el.html(this.template(this.model.toJSON()));
+            (this.model.shared(this.notes.selected())) ? this.$el.addClass('shared') : this.$el.removeClass('shared');
+
             return this;
           },
           share: function() {

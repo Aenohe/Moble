@@ -16,6 +16,7 @@ define(['facebook', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!temp
             "&redirect_uri=http://goblish.com/Moble/" + 
             "&response_type=code" + 
             "&scope=email";
+            return false;
           }
         }),
 
@@ -49,6 +50,7 @@ define(['facebook', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!temp
             "&redirect_uri=http://goblish.com/Moble/" + 
             "&response_type=code" + 
             "&scope=email";
+            this.$el.addClass('loading');
           }
         });
 

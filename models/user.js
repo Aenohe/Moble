@@ -19,6 +19,10 @@ define(['socket', 'jquery', 'underscore', 'backbone'],
       toggleSelect: function() {
         this.set('selected', !this.get('selected'));
       },
+      shared: function(notes) {
+        var self = this;
+        return _.every(notes, function(note) { console.log(note.sharedTo) return _.contains(note.sharedTo, self.get('FBId')); });
+      },
       connected: function() {
         return this.get('FBId') ? true : false;
       },
