@@ -11,6 +11,16 @@ define(['jquery', 'underscore', 'backbone', 'models/note'],
             note.select();
         });
       },
+      do: function(notes) {
+        _(notes).each(function(note) {
+          note.do();
+        });
+      },
+      undo: function(notes) {
+        _(notes).each(function(note) {
+          note.undo();
+        });
+      },
       selected: function() {
         return this.where({selected: true});
       },

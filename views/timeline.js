@@ -20,7 +20,9 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             'click #btn_cancelSelection': 'unselectNotes',
             'click #btn_create': 'createNote',
             'click #btn_share': 'shareNotes',
-            'click #btn_remove': 'removeNotes'
+            'click #btn_remove': 'removeNotes',
+            'click #btn_do': 'doNotes',
+            'click #btn_undo': 'undoNotes'
           },
           initialize: function() {
             _.bindAll(this, 'render');
@@ -50,6 +52,12 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
               d.remove();
             });
             this.collection.remove(this.collection.selected());
+          },
+          doNotes: function() {
+            this.collection.do(this.collection.selected());
+          },
+          undoNotes: function() {
+            this.collection.undo(this.collection.selected());
           }
         }),
 
