@@ -36,6 +36,15 @@ define(['socket', 'jquery', 'underscore', 'backbone'],
         else
           socket.emit('undoNote', {FBId: moble.user.get('FBId'), note_id: this.id});
       },
+      done: function() {
+        this.set('done', moble.user.get('FBId'));
+      },
+      undone: function() {
+        this.set('done', null);
+      },
+      toggleDone: function() {
+        this.set('done', (!this.get('done')) ? moble.user.get('FBId') : null);
+      },
       share: function(user) {
         this.get('sharedTo').push(user);
         socket.emit('sharing', {FBId: moble.user.get('FBId'), note_id: this.id, FBId_invit: user});

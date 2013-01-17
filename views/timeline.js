@@ -71,7 +71,8 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             'click [type="checkbox"]': 'toggleSelect',
             'click .elem': 'toEdit',
             'click .btn_share': 'toShare',
-            'click .btn_remove': 'toRemove'
+            'click .btn_remove': 'toRemove',
+            'click .btn_check': 'toggleDone'
           },
           initialize: function() {
             _.bindAll(this, 'render', 'toRemove');
@@ -99,6 +100,9 @@ define(['socket', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!templa
             this.model.remove();
             this.remove();
             return false;
+          },
+          toggleDone: function() {
+            this.model.toggleDone();
           },
           toggleSelect: function() {
             this.model.toggleSelect();
