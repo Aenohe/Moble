@@ -40,6 +40,10 @@ define(['socketLib'],
       moble.trigger('noteRemoved', d);
     });
 
+    socket.on('onFriendConnected', function(d) {
+      moble.trigger('friend:connected', d);
+    });
+
     socket.on('news', function(d) {
       console.log('news: ' + d);
     });

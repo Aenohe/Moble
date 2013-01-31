@@ -8,7 +8,8 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/notif.
         onNoteCreated: Handlebars.compile($('#onNoteCreated', tmpl).html()),
         onNoteRemoved: Handlebars.compile($('#onNoteRemoved', tmpl).html()),
         onNoteUpdated: Handlebars.compile($('#onNoteUpdated', tmpl).html()),
-        onNoteShared: Handlebars.compile($('#onNoteShared', tmpl).html())
+        onNoteShared: Handlebars.compile($('#onNoteShared', tmpl).html()),
+        onFriendConnected: Handlebars.compile($('#onFriendConnected', tmpl).html())
       },
       initialize: function(options) {
         _.bindAll(this, 'onNoteCreated', 'onNoteRemoved', 'onNoteUpdated', 'onNoteShared');
@@ -17,6 +18,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/notif.
         moble.on('noteRemoved', this.onNoteRemoved);
         moble.on('noteUpdated', this.onNoteUpdated);
         moble.on('noteShared', this.onNoteShared);
+        moble.on('friend:connected', this.onFriendConnected);
       },
       onNoteCreated: function(note) {
         this.$el.html(this.templates.onNoteCreated(note));
@@ -29,6 +31,9 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/notif.
       },
       onNoteShared: function(note) {
         this.$el.html(this.templates.onNoteShared(note));
+      },
+      onFriendConnected: function(friend) {
+        this.$el.html(this.templates.onFriendConnected(friend));
       }
     });
   });
