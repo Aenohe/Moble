@@ -88,6 +88,9 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
           },
           renderSubview: function(view, selector) {
             view.setElement(this.$(selector)).render();
+          },
+          focusOn: function(id) {
+            this.formView.focusOn(id);
           }
         });
 
@@ -103,6 +106,9 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
       unbind: function() {
         this.headerView.undelegateEvents();
         this.contentView.undelegateEvents();
+      },
+      focusOn: function(id) {
+        this.contentView.focusOn(id);
       }
     });
   });
