@@ -41,7 +41,6 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
           },
           render: function() {
             this.$el.html(this.template($.extend({}, this.model.toJSON(), { isOwner: moble.user.isOwner(this.model) })));
-            this.$('#name').focus();
             return this;
           },
           updateName: function(e) {
@@ -70,6 +69,9 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
           clean: function() {
             this.undelegateEvents();
             this.$el.empty();
+          },
+          focusOn: function(id) {
+            this.$(id).focus();
           }
         });
 

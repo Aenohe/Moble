@@ -32,8 +32,10 @@ define(['jquery', 'underscore', 'backbone', 'views/login', 'views/timeline', 'vi
       toEdit: function(id) {
         var note = moble.notes.get(id);
 
-        if (this.checkConnection() && note)
+        if (this.checkConnection() && note) {
           this.editView.render(note);
+          this.editView.focusOn('#name');
+        }
       },
       toShare: function(id) {
         if (this.checkConnection()) {
