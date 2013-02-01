@@ -4,4 +4,4 @@
   exports data into object conf by a require
 */
 
-exports.port = 8080
+exports.port = 38552
