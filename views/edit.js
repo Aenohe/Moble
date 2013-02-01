@@ -35,7 +35,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
             'click #done': 'updateDone'
           },
           render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.html(this.template($.extend({}, this.model.toJSON(), { isOwner: moble.user.isOwner(this.model) })));
             return this;
           },
           updateName: function(e) {

@@ -20,19 +20,19 @@
   <script id="form" type="text/x-handlebars">
     <form method="post" action="#">
       <div>
-        <div><input id="name" type="text" value="{{name}}" placeholder="Titre"/></div>
+        <div><input id="name" type="text" value="{{name}}" placeholder="Titre" {{#unless isOwner}}disabled{{/unless}}/></div>
       </div>
       <div>
         <div><textarea id="description" placeholder="Commentaire">{{description}}</textarea></div>
       </div>
       <div>
-        <div><input id="quantity" type="text" value="{{quantity}}" placeholder="Quantit&eacute;"/></div>
+        <div><input id="quantity" type="text" value="{{quantity}}" placeholder="Quantit&eacute;" {{#unless isOwner}}disabled{{/unless}}/></div>
       </div>
       <div>
-        <div><input id="price" type="text" value="{{price}}" placeholder="Prix"/></div>
+        <div><input id="price" type="text" value="{{price}}" placeholder="Prix" /></div>
       </div>
       <div>
-        <div><input id="date" type="date" value="{{timeToDate date}}" placeholder="Date d'&eacute;ch&eacute;ance"/></div>
+        <div><input id="date" type="date" value="{{timeToDate date}}" placeholder="Date d'&eacute;ch&eacute;ance" {{#unless isOwner}}disabled{{/unless}}/></div>
       </div>
       <div>
         <div><input id="done" type="checkbox" {{#if done}}checked="checked"{{/if}} /> <label for="done"><span></span> Done?</label></div>
