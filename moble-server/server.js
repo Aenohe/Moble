@@ -6,6 +6,7 @@ var io = require('socket.io').listen(conf.port);
 io.sockets.on('connection', function (socket) {
  	try
  	{
+    console.log('toto');
  		//route.check_events(socket);	
  	}
  	catch (err)
