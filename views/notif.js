@@ -21,27 +21,27 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/notif.
         moble.on('friend:connected', this.onFriendConnected);
       },
       onNoteCreated: function(note) {
-        this.$el.hide();
+        this.$el.css({'display': 'none'});
         this.$el.html(this.templates.onNoteCreated(note));
         this.$el.slideDown().delay(5000).slideUp();
       },
       onNoteRemoved: function(note) {
-        this.$el.hide();
+        this.$el.css({'display': 'none'});
         this.$el.html(this.templates.onNoteRemoved(note));
         this.$el.slideDown().delay(5000).slideUp();      
       },
       onNoteUpdated: function(note) {
-        this.$el.hide();
+        this.$el.css({'display': 'none'});
         this.$el.html(this.templates.onNoteUpdated(note));
         this.$el.slideDown().delay(5000).slideUp();
       },
       onNoteShared: function(note) {
-        this.$el.hide();
+        this.$el.css({'display': 'none'});
         this.$el.html(this.templates.onNoteShared(note));
         this.$el.slideDown().delay(5000).slideUp();
       },
       onFriendConnected: function(friend) {
-        this.$el.hide();
+        this.$el.css({'display': 'none'});
         this.$el.html(this.templates.onFriendConnected(friend));
         this.$el.slideDown().delay(5000).slideUp();
       }

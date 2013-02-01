@@ -44,9 +44,5 @@ define(['socketLib'],
       moble.trigger('friend:connected', d);
     });
 
-    socket.on('news', function(d) {
-      console.log('news: ' + d);
-    });
-
     return socket;
   });

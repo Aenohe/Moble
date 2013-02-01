@@ -34,6 +34,11 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
             'blur #date': 'updateDate',
             'click #done': 'updateDone'
           },
+          initialize: function() {
+            _.bindAll(this, 'render');
+
+            this.model.bind('change', this.render);
+          },
           render: function() {
             this.$el.html(this.template($.extend({}, this.model.toJSON(), { isOwner: moble.user.isOwner(this.model) })));
             return this;
