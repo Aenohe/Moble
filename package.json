@@ -1,11 +1,11 @@
 {
-  "name":    "facebook-template-node",
+  "name":    "Moble",
   "version": "0.0.1",
 
-  "description": "Template app for Heroku / Facebook integration, Node.js language",
+  "description": "Moble Application",
 
   "dependencies": {
-    "socket.io": "0.9.6"
+    "socket.io": "~0.9.6"
   },
 
   "engines": {
