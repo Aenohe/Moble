@@ -1,1 +1,1 @@
-require('moble-server/server.js');
+require('./moble-server/server.js');
