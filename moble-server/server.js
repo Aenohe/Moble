@@ -1,4 +1,4 @@
-//var conf = require('./conf');
+var conf = require('./conf');
 var io = require('socket.io').listen(conf.port);
 /*
 var route = require('./url_routes');
