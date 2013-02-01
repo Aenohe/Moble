@@ -24,25 +24,38 @@ define(['jquery', 'underscore', 'backbone', 'views/login', 'views/timeline', 'vi
         this.loginView.render();
       },
       toTimeline: function() {
-        moble.notes.select([]);
-        this.timelineView.render();
+        if (this.checkConnection()) {
+          moble.notes.select([]);
+          this.timelineView.render();  
+        }
       },
       toEdit: function(id) {
-        this.editView.render(moble.notes.get(id));
+        var note = moble.notes.get(id);
+
+        if (this.checkConnection() && note)
+          this.editView.render(note);
       },
       toShare: function(id) {
-        if (id)
-          moble.notes.select([id]);
-        this.shareView.render();
+        if (this.checkConnection()) {
+          if (id)
+            moble.notes.select([id]);
+          this.shareView.render();  
+        }
       },
       toProfile: function() {
-        this.profileView.render();
+        if (this.checkConnection())
+          this.profileView.render();
+      },
+      checkConnection: function() {
+        if (!moble.user.connected()) {
+          this.navigate('login', true);
+          return false;          
+        }
+        return true;
       },
       default: function() {
-        if (moble.user.connected())
+        if (this.checkConnection())
           this.navigate('timeline', true);
-        else
-          this.navigate('login', true);
       }
     });
   });
