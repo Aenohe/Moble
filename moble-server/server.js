@@ -5,8 +5,10 @@ var conf = require('./conf'),
 
 //var route = require('./url_routes');
 
-app.use(express.errorHandler());
-app.use(express.static('../moble-client'));
+server.configure(function () {
+  app.use(express.errorHandler());
+  app.use(express.static(__dirname + '../moble-client'));
+});
 
 io.configure(function () { 
   io.set("transports", ["xhr-polling"]); 
