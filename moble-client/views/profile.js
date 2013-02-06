@@ -65,7 +65,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
               method: 'feed',
               redirect_uri: 'https://moble.herokuapp.com/#profile',
               link: 'https://moble.herokuapp.com/#profile',
-              picture: 'https://fbrell.com/f8.jpg',
+              picture: 'https://fbcdn-photos-a.akamaihd.net/photos-ak-snc7/v27562/20/461789340550796/app_115_461789340550796_796145593.png',
               name: 'Moble',
               caption: 'Mobling me',
               description: 'Hey, viens c\'est bien ici !'
