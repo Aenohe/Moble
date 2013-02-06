@@ -6,7 +6,7 @@ var conf = require('./conf'),
 //var route = require('./url_routes');
 
 app.use(express.errorHandler());
-app.use(express.static(__dirname + '/moble-client'));
+app.use(express.static('../moble-client'));
 
 io.configure(function () { 
   io.set("transports", ["xhr-polling"]); 
