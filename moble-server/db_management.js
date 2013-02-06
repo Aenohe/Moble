@@ -257,7 +257,7 @@ function timeline_content(infos, socket)
 	var noteId = '';
 	if (infos.hasOwnProperty('note_id'))
 		noteId = infos.note_id;
-	searched_note.findOne({_id: noteId, ownerId: infos.FBId}, function (err, note) {
+	searched_note.findOne({_id: ObjectId(noteId), ownerId: infos.FBId}, function (err, note) {
 		if (note != null)
 		{
 			date_note = note.date;
