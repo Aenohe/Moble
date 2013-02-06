@@ -1,5 +1,4 @@
-function User(FBId, socket)
-{
+function User(FBId, socket) {
 	this.id = FBId;
 	this.socket = socket;
 }

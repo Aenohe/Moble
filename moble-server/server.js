@@ -19,6 +19,11 @@ app.listen(port, function() {
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
 
-io.on('connection', function (socket) {
-  console.log('Im connected !');
+io.sockets.on('connection', function (socket) {
+  try {
+    route.check_events(socket); 
+  }
+  catch (err) {
+    console.log(err);
+  }
 });

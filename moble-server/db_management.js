@@ -2,7 +2,7 @@ var users_management = require('./User');
 var mongoose = require('mongoose');
 var https = require('https');
 
-mongoose.connect('mongodb://localhost');
+mongoose.connect('mongodb://moble:sftwc42@ds043457.mongolab.com:43457/heroku_app11473320');
 var Schema = mongoose.Schema;
 
 mongoose.model('User', new Schema({ 
