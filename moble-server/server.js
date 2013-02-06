@@ -18,11 +18,7 @@ var port = process.env.PORT || 5000; // Use the port that Heroku provides or def
 app.listen(port, function() {
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
-/*
-app.get('/', function(req, res) {
-    res.render('index.html');
-});
-*/
+
 io.on('connection', function (socket) {
   console.log('Im connected !');
 });
