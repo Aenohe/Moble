@@ -5,6 +5,7 @@
   "description": "Moble Application",
 
   "dependencies": {
+    "express": "~2.5.8"
     "socket.io": "~0.9.6"
   },
 

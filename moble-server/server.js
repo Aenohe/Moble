@@ -1,5 +1,7 @@
-var conf = require('./conf');
-var io = require('socket.io').listen(conf.port);
+var conf = require('./conf'),
+    express = require('express'),
+    app = express.createServer(express.logger()),
+    io = require('socket.io').listen(app);
 
 //var route = require('./url_routes');
 
@@ -8,4 +10,11 @@ io.configure(function () {
   io.set("polling duration", 10); 
 });
 
-io.on('connection', function (socket) {});
+var port = process.env.PORT || 5000; // Use the port that Heroku provides or default to 5000
+app.listen(port, function() {
+  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+});
+
+io.on('connection', function (socket) {
+  console.log('Im connected !');
+});
