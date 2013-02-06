@@ -255,12 +255,14 @@ function timeline_content(infos, socket)
 	var date_note;
 	var searched_note = mongoose.model('Notes');
 	var noteId = '';
-	if (infos.hasOwnProperty('note_id'))
-		noteId = new mongoose.Types.ObjectId(infos.note_id);
-	console.log('___________________');
-	console.log(searched_note.find({}).limit(10));
-	console.log('****');
-	searched_note.find({}).limit(10).exec(function (err, note) {
+		if (infos.hasOwnProperty('note_id'))
+			noteId = infos.note_id;
+		console.log('___________________');
+		console.log(noteId);
+		console.log("\n");
+		console.log(searched_note.find({_id: mongoose.Types.ObjectId("5112d12fcc16860200000006")}).limit(10));
+		console.log('****');
+		searched_note.find({}).limit(10).exec(function (err, note) {
 		if (note != null)
 		{
 			date_note = note.date;
