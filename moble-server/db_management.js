@@ -1,9 +1,10 @@
-var users_management = require('./User');
-var mongoose = require('mongoose');
-var https = require('https');
+var users_management = require('./User'),
+		mongoose = require('mongoose'),
+		https = require('https');
 
 mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/heroku_app11473320');
-var Schema = mongoose.Schema;
+var Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
 
 mongoose.model('User', new Schema({ 
 		FBId: { type: String, default: null }, 
