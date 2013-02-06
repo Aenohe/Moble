@@ -1,10 +1,10 @@
 var users_management = require('./User'),
 		mongoose = require('mongoose'),
-		https = require('https');
+		https = require('https'),
+		ObjectId = mongoose.Types.ObjectId; 
 
 mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/heroku_app11473320');
-var Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
+var Schema = mongoose.Schema;
 
 mongoose.model('User', new Schema({ 
 		FBId: { type: String, default: null }, 
@@ -258,7 +258,7 @@ function timeline_content(infos, socket)
 	var noteId = '';
 	if (infos.hasOwnProperty('note_id'))
 		noteId = infos.note_id;
-	searched_note.findOne({_id: ObjectId(noteId), ownerId: infos.FBId}, function (err, note) {
+	searched_note.findOne({_id: new ObjectId(noteId), ownerId: infos.FBId}, function (err, note) {
 		if (note != null)
 		{
 			date_note = note.date;
