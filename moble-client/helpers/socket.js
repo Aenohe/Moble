@@ -12,6 +12,7 @@ define(['socketLib'],
     });
 
     socket.on('timelineContent', function(d) {
+      console.log(d);
       moble.notes.update(d);
     });
 
