@@ -26,8 +26,10 @@ define(['socketLib'],
     });
 
     socket.on('onNoteUpdated', function(d) {
-      moble.notes.get(d._id).set(d);
-      moble.trigger('noteUpdated', d);
+      if (moble.notes.get(d._id).attributes != d) {
+        moble.notes.get(d._id).set(d);
+        moble.trigger('noteUpdated', d);
+      }
     });
 
     socket.on('onNoteShared', function(d) {
