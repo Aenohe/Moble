@@ -18,7 +18,7 @@ app.listen(port, function() {
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
 
-app.get('*',function(req,res,next){
+app.get('*',function(req, res){
   if(req.headers['x-forwarded-proto'] != 'https')
     res.redirect('https://moble.herokuapp.com' + req.url);
 });
