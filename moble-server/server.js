@@ -24,7 +24,7 @@ app.get('*', function (req,res,next) {
     res.redirect('https://mypreferreddomain.com'+req.url);
 });
 */
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
   try {
     route.check_events(socket); 
   }
