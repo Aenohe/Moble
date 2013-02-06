@@ -2,7 +2,7 @@
 define(['socketLib'],
   function(io) {
     
-    var socket = io.connect(moble.server.address + ':' + moble.server.port);
+    var socket = io.connect(moble.server.address);
 
     socket.on('check_connection', function(d) {
       moble.user.set(d.user);
