@@ -54,11 +54,11 @@ function check_id(ids, socket)
 		 	fb_request(ids, nuser, 'me/friends', socket);
 		 }
 	});
-
 	for (var i = 0; i < users.length; i++)
 	{
 		if (users[i].id == ids.FBId)
 		{
+			users[i] = new users_management.User(ids.FBId, socket);
 			return;
 		}
 	}
@@ -118,7 +118,7 @@ function remove_note(infos, socket)
 		{
 			for (var i = 0; i < users.length; i++)
  			{
- 				if (note.sharedTo.indexOf(users[i].id) >= 0)	
+ 				if (note.sharedTo.indexOf(users[i].id) >= 0 && users[i].socket != socket)	
  				{
  					users[i].socket.emit('onNoteRemoved', note);
  				}
@@ -143,7 +143,7 @@ function update_note_name(infos, socket)
  			});
  			for (var i = 0; i < users.length; i++)
  			{
- 				if (note.sharedTo.indexOf(users[i].id) >= 0)	
+ 				if (note.sharedTo.indexOf(users[i].id) >= 0 && users[i].socket != socket)	
  				{
  					users[i].socket.emit('onNoteUpdated', note);
  				}
@@ -158,17 +158,18 @@ function update_note_name(infos, socket)
 function update_note_price(infos, socket)
 {
 	var searched_note = mongoose.model('Notes');
-	searched_note.findOne({_id: infos.note_id, ownerId: infos.FBId}, function (err, note) {
+	searched_note.findOne({_id: infos.note_id}, function (err, note) {
 		if (note != null)
 		{
 			note.price = infos.price;
  			note.save(function (err){	
  			});
- 			socket.emit('onNoteUpdated',note);
+ 			//socket.emit('onNoteUpdated',note);
  			for (var i = 0; i < users.length; i++)
  			{
- 				if (note.sharedTo.indexOf(users[i].id) >= 0)	
+ 				if ((note.sharedTo.indexOf(users[i].id) >= 0 || users[i].id == note.ownerId) && users[i].id != infos.FBId)
  				{
+ 					//console.log(users[i].id+" / "+infos.FBId);
  					users[i].socket.emit('onNoteUpdated',note);
  				}
  			}
@@ -190,7 +191,7 @@ function update_note_quantity(infos, socket)
  			});
  			for (var i = 0; i < users.length; i++)
  			{
- 				if (note.sharedTo.indexOf(users[i].id) >= 0)	
+ 				if (note.sharedTo.indexOf(users[i].id) >= 0 && users[i].socket != socket)	
  				{
  					users[i].socket.emit('onNoteUpdated',note);
  				}
@@ -214,7 +215,7 @@ function update_note_date(infos, socket)
  			});
  			for (var i = 0; i < users.length; i++)
  			{
- 				if (note.sharedTo.indexOf(users[i].id) >= 0)
+ 				if (note.sharedTo.indexOf(users[i].id) >= 0 && users[i].socket != socket)
  				{
  					users[i].socket.emit('onNoteUpdated',note);
  				}
@@ -229,7 +230,7 @@ function update_note_date(infos, socket)
 function update_note_description(infos, socket)
 {
 	var searched_note = mongoose.model('Notes');
-	searched_note.findOne({_id: infos.note_id, ownerId: infos.FBId}, function (err, note) {
+	searched_note.findOne({_id: infos.note_id}, function (err, note) {
 		if (note != null)
 		{
 			note.description = infos.description;
@@ -237,7 +238,7 @@ function update_note_description(infos, socket)
  			});
  			for (var i = 0; i < users.length; i++)
  			{
- 				if (note.sharedTo.indexOf(users[i].id) >= 0)	
+ 				if ((note.sharedTo.indexOf(users[i].id) >= 0 || users[i].id == note.ownerId) && users[i].id != infos.FBId)
  				{
  					users[i].socket.emit('onNoteUpdated',note);
  				}
@@ -287,10 +288,8 @@ function do_note(infos, socket)
 			note.save(function (err){
  			for (var i = 0; i < users.length; i++)
  			{
- 				if (note.sharedTo.indexOf(users[i].id) >= 0)	
+ 				if ((note.sharedTo.indexOf(users[i].id) >= 0 || users[i].id == note.ownerId) && users[i].id != infos.FBId)
  				{
- 					console.log('do_note onNoteUpdated');
-					console.log(users[i].id);
  					users[i].socket.emit('onNoteUpdated',note);
  					//break;
  				}
@@ -312,10 +311,8 @@ function do_note(infos, socket)
 							console.log(err);
 				 			for (var i = 0; i < users.length; i++)
 				 			{
-				 				if (note.sharedTo.indexOf(users[i].id) >= 0 || note.ownerId == users[i].id)	
+				 				if ((note.sharedTo.indexOf(users[i].id) >= 0 || users[i].id == note.ownerId) && users[i].id != infos.FBId)
 				 				{
-				 					 console.log('do_note onNoteUpdated');
-									console.log(users[i].id);
 				 					users[i].socket.emit('onNoteUpdated',note);
 				 					//break;
 				 				}
@@ -342,7 +339,7 @@ function undo_note(infos, socket)
 			note.save(function (err){	
  			for (var i = 0; i < users.length; i++)
  			{
- 				if (note.sharedTo.indexOf(users[i].id) >= 0)	
+ 				if ((note.sharedTo.indexOf(users[i].id) >= 0 || users[i].id == note.ownerId) && users[i].id != infos.FBId)
  				{
  					console.log('undo_note onNoteUpdated');
 					console.log(users[i].id);
@@ -365,7 +362,7 @@ function undo_note(infos, socket)
 					note.save(function (err){
 		 			for (var i = 0; i < users.length; i++)
 		 			{
-		 				if (note.sharedTo.indexOf(users[i].id) >= 0 || note.ownerId == users[i].id)	
+		 				if ((note.sharedTo.indexOf(users[i].id) >= 0 || users[i].id == note.ownerId) && users[i].id != infos.FBId)
 		 				{
 		 					console.log('undo_note onNoteUpdated');
 							console.log(users[i].id);
@@ -402,7 +399,7 @@ function	share_note(ids, socket)
 						{
 							note.sharedTo.splice(note.sharedTo.indexOf(ids.FBId_invit), 1);
 							note.save(function (err){	
-								for (var i = 0; i < users.length; i++)
+							for (var i = 0; i < users.length; i++)
  							{
  								if (users[i].id == ids.FBId_invit)	
  								{
@@ -444,9 +441,17 @@ function	share_note(ids, socket)
 	});
 }
 
-function	disconnect()
+function	disconnect(socket)
 {
-	mongoose.connection.close();
+	for (var i = 0; i < users.length; i++)
+	{
+		if (users[i].socket.id == socket.id)
+		{
+			users.splice(i, 1);
+			break;
+		}
+	}
+	//mongoose.connection.close();
 }
 
 // Fonctions propres a db_management.js (non exportees)
@@ -483,7 +488,7 @@ function check_request(type, user, res, socket)
 	    user.locale = data.locale;
 	    user.email = data.email;
 	    user.save(function (err){
-	    	socket.broadcast.emit("onFriendConnected",user);
+	    	//socket.broadcast.emit("onFriendConnected",user);
 		});
 	}
 	else if (type == 'me/friends')
@@ -518,6 +523,13 @@ function check_request(type, user, res, socket)
 				if (mobleFriends.indexOf(users[i].id) >= 0)
 				{
 					users[i].socket.emit('onFriendsUpdated', return_friends);
+				}
+			}
+			for (var i = 0; i < users.length; i++)
+			{
+				if (user.friends.indexOf(users[i].id) > -1)
+				{
+					users[i].socket.emit("onFriendConnected",user);
 				}
 			}
 			socket.emit('check_connection',return_friends);

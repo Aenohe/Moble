@@ -5,9 +5,8 @@ function check_events(socket) {
 	socket.on('check_connection', function (ids) {
 		if (ids && ids.FBId) {
 			db.check_id(ids, socket);
-			//db.get_basics(ids.FBId, socket);
 		}
-	})
+	});
 
 	socket.on('invitation', function (data) {
 		if (data && data.FBId_invit)
@@ -72,7 +71,7 @@ function check_events(socket) {
 
 function disconnect_db() {
 	db.disconnect();
-}
+};
 
 exports.check_events = check_events;
 exports.disconnect_db = disconnect_db;

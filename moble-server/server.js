@@ -1,5 +1,4 @@
-var conf = require('./conf'),
-    express = require('express'),
+var express = require('express'),
     app = express.createServer(express.logger()),
     io = require('socket.io').listen(app);
 
