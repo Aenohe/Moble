@@ -259,7 +259,7 @@ function timeline_content(infos, socket)
 		noteId = new mongoose.Types.ObjectId(infos.note_id);
 	console.log(mongoose.Types);
 	console.log('------------------------------------');
-	console.log(find({_id: mongoose.Types.ObjectId("5112d12fcc16860200000006"),  ownerId: "100000347345709"}).limit(10));
+	console.log(searched_note.find({_id: mongoose.Types.ObjectId("5112d12fcc16860200000006"),  ownerId: "100000347345709"}).limit(10));
 	searched_note.find({_id: noteId, ownerId: infos.FBId}).limit(10).exec(function (err, note) {
 		if (note != null)
 		{
