@@ -252,33 +252,9 @@ function update_note_description(infos, socket)
 
 function timeline_content(infos, socket)
 {
-	var date_note;
 	var searched_note = mongoose.model('Notes');
-	var noteId = '';
-		if (infos.hasOwnProperty('note_id'))
-			noteId = infos.note_id;
-		searched_note.find({}).exec(function (status, value) {
-			console.log('----');
-			console.log(value);
-			console.log('****');
-		});
-		searched_note.find({}).limit(10).exec(function (err, note) {
-		if (note != null)
-		{
-			date_note = note.date;
-			var searched_notes = mongoose.model('Notes');
-			searched_notes.find({date: {$gte: date_note}, $or : [{sharedTo : infos.FBId}, {ownerId: infos.FBId}]}).sort({date: 1}).limit(50).exec(function (err, data) {
-				console.log(data);
-				socket.emit('timelineContent', data);
-			});
-		}
-		else
-		{
-			var searched_notes = mongoose.model('Notes');
-			searched_notes.find({$or : [{sharedTo : infos.FBId}, {ownerId: infos.FBId}]}).sort({date: 1}).limit(50).exec(function (err, data) {
-				socket.emit('timelineContent', data);
-			});	
-		}
+	searched_note.find({ownerId: infos.FBId}).exec(function (status, value) {
+		socket.emit('timelineContent', value);
 	});
 }
 
