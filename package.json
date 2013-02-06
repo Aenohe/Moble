@@ -1,15 +1,13 @@
 {
   "name":    "Moble",
   "version": "0.0.1",
-
   "description": "Moble Application",
-
   "dependencies": {
-    "express": "~2.5.8"
+    "express": "~2.5.8",
     "socket.io": "~0.9.6"
   },
-
   "engines": {
-    "node": "0.6.x"
+    "node": "0.8.x",
+    "npm":  "1.1.x"
   }
 }
