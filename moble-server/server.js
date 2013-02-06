@@ -5,7 +5,7 @@ var conf = require('./conf'),
 
 //var route = require('./url_routes');
 
-server.configure(function () {
+app.configure(function () {
   app.use(express.errorHandler());
   app.use(express.static(__dirname + '../moble-client'));
 });
