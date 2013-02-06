@@ -256,8 +256,8 @@ function timeline_content(infos, socket)
 	var searched_note = mongoose.model('Notes');
 	var noteId = '';
 	if (infos.hasOwnProperty('note_id'))
-		noteId = infos.note_id;
-	searched_note.findOne({_id: mongoose.mongo.BSONPure.ObjectID.fromString(noteId), ownerId: infos.FBId}, function (err, note) {
+		noteId = mongoose.Types.ObjectId(infos.note_id)
+	searched_note.findOne({_id: noteId, ownerId: infos.FBId}, function (err, note) {
 		if (note != null)
 		{
 			date_note = note.date;
