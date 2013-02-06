@@ -1,5 +1,5 @@
+/* Sample server (do not use) */
 var io = require('socket.io').listen(app);
-/*
 var app = require('http').createServer(handler);
 var fs = require('fs');
 
@@ -24,4 +24,3 @@ io.sockets.on('connection', function (socket) {
     console.log(data);
   });
 });
-*/

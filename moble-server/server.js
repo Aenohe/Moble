@@ -3,7 +3,7 @@ var conf = require('./conf'),
     app = express.createServer(express.logger()),
     io = require('socket.io').listen(app);
 
-//var route = require('./url_routes');
+var route = require('./url_routes');
 
 app.configure(function () {
   app.use(express.static(__dirname + '/../moble-client'));
