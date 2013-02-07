@@ -54,9 +54,10 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
           invite: function() {
             this.model.invite();
           },
-          inviting: function () {
+          inviting: function (e) {
             alert('toto');
-            console.log($(this).children('*'));
+            console.log(e);
+            console.log($(this).children('img'));
             /*
             FB.ui({method: 'apprequests',
               message: 'Moble is great !',
