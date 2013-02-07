@@ -55,10 +55,14 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
             this.model.invite();
           },
           inviting: function () {
+            alert('toto');
+            console.log($(this));
+            /*
             FB.ui({method: 'apprequests',
               message: 'Moble is great !',
-              to: moble.user.get('FBId')
+              to: $(this).attr('id');
             });
+*/
             return false;
           },
           sharing: function () {
