@@ -23,6 +23,11 @@ app.get('*',function(req, res){
     res.redirect('https://moble.herokuapp.com' + req.url);
 });
 
+app.post('*',function(req, res){
+  if(req.headers['x-forwarded-proto'] != 'https')
+    res.redirect('https://moble.herokuapp.com' + req.url);
+});
+
 io.sockets.on('connection', function (socket) {
   try {
     route.check_events(socket); 

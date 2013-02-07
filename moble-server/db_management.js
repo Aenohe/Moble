@@ -2,7 +2,7 @@ var users_management = require('./User'),
 		mongoose = require('mongoose'),
 		https = require('https');
 
-mongoose.connect('mongodb://localhost/app11473320');
+mongoose.connect(process.env.MONGOHQ_URL);
 
 var Schema = mongoose.Schema;
 
