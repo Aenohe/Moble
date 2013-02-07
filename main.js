@@ -1,20 +1,40 @@
 
-var moble = moble || {};
-
-moble.config = {
-  server: '163.5.84.193'
+/* moble defines */
+var moble = {
+  /* data */
+  user: null,
+  mobleFriends: null,
+  otherFriends: null,
+  notes: null,
+  /* server config */
+  server: {
+    address: '163.5.84.193',
+    port: '80'
+  },
+  /* facebook */
+  facebook: {
+    appId: '118094878340771'
+  }
 };
 
+/* requirejs config */
 require.config({
   paths: {
-    text: 'libs/require-text',
+    /* plugins */
+    text: '//cdnjs.cloudflare.com/ajax/libs/require-text/2.0.3/text',
+    /* libraries */
     jquery: '//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min',
     underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min',
-    backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min',
-    handlebars: '//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.1/handlebars.min',
+    backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.9/backbone-min',
     bootstrap: '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.1/bootstrap.min',
-    facebook: '//connect.facebook.net/en_US/all',
-    socket: '//' + moble.config.server + '/socket.io/socket.io'
+    // need to do it here, seems not working if directly passed into define
+    socketLib: '//' + moble.server.address + ':' + moble.server.port + '/socket.io/socket.io',
+    facebookSDK: '//connect.facebook.net/en_US/all',
+    handlebarsLib: '//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.1/handlebars.min',
+    /* helpers */
+    socket: 'helpers/socket',
+    facebook: 'helpers/facebook',
+    handlebars: 'helpers/handlebars'
   },
 
   shim: {
@@ -24,14 +44,15 @@ require.config({
       deps: ['jquery', 'underscore'],
       exports: 'Backbone'
     },
-    handlebars: { exports: 'Handlebars' },
-    facebook: { exports: 'FB' },
-    socket: 'io'
+    handlebarsLib: { exports: 'Handlebars' },
+    facebookSDK: { exports: 'FB' },
+    socketLib: { exports: 'io' }
   }
 });
 
-require(['app'], 
-  function(App) {
+require(['app', 'facebook'],
+  function(app, FB) {
 
-    App.initialize();
+    app.initialize();
+    FB.initialize();
   });

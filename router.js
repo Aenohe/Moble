@@ -1,31 +1,63 @@
 
-define(['jquery', 'underscore', 'backbone', 'views/navbar', 'views/login', 'views/timeline'],
-  function($, _, Backbone, NavbarView, LoginView, TimelineView) {
+define(['jquery', 'underscore', 'backbone', 'views/login', 'views/timeline', 'views/edit', 'views/share', 'views/profile', 'views/notif'],
+  function($, _, Backbone, LoginView, TimelineView, EditView, ShareView, ProfileView, NotifView) {
 
-    var Router = Backbone.Router.extend({
-      initialize: function() {
-        this.navbarView = new NavbarView();
-        this.loginView = new LoginView();
-        this.timelineView = new TimelineView();
-        Backbone.history.start();
-      },
+    return Backbone.Router.extend({
       routes: {
-        'login': 'login',
-        'timeline': 'timeline',
-        '*actions': 'default'
+        'login': 'toLogin',
+        'timeline': 'toTimeline',
+        'edit/:id': 'toEdit',
+        'share/:id': 'toShare',
+        'share': 'toShare',
+        'profile': 'toProfile',
+        "*actions": 'default'
       },
-      login: function() {
-        this.navbarView.render('login');
+      initialize: function() {
+        this.notifView = new NotifView();
+        this.loginView = new LoginView();
+        this.timelineView = new TimelineView({ user: moble.user, notes: moble.notes });
+        this.editView = new EditView();
+        this.shareView = new ShareView({ notes: moble.notes, friends: moble.mobleFriends });
+        this.profileView = new ProfileView({ user: moble.user, friends: moble.otherFriends });
+      },
+      toLogin: function() {
         this.loginView.render();
       },
-      timeline: function() {
-        this.navbarView.render('timeline');
-        this.timelineView.render();
+      toTimeline: function() {
+        if (this.checkConnection()) {
+          moble.notes.select([]);
+          this.timelineView.render();  
+        }
+      },
+      toEdit: function(id) {
+        var note = moble.notes.get(id);
+
+        if (this.checkConnection() && note) {
+          this.editView.render(note);
+          this.editView.focusOn('#name');
+        }
+      },
+      toShare: function(id) {
+        if (this.checkConnection()) {
+          if (id)
+            moble.notes.select([id]);
+          this.shareView.render();  
+        }
+      },
+      toProfile: function() {
+        if (this.checkConnection())
+          this.profileView.render();
+      },
+      checkConnection: function() {
+        if (!moble.user.connected()) {
+          this.navigate('login', true);
+          return false;          
+        }
+        return true;
       },
       default: function() {
-        this.navigate('login', {trigger: true});
+        if (this.checkConnection())
+          this.navigate('timeline', true);
       }
     });
-
-    return Router;
   });

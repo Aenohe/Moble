@@ -1,23 +1,31 @@
 
-define(['jquery', 'underscore', 'backbone', 'facebook', 'socket', 'router'],
-  function($, _, Backbone, FB, socket, Router) {
+define(['socket', 'jquery', 'underscore', 'backbone', 'router', 'models/user.js', 'collections/friends', 'collections/notes'],
+  function(socket, $, _, Backbone, Router, User, Friends, Notes) {
 
     return {
       initialize: function() {
-        var that = this;
+        moble = _.extend(moble, Backbone.Events);
+        moble.user = new User();
+        moble.mobleFriends = new Friends();
+        moble.otherFriends = new Friends();
+        moble.notes = new Notes();
+        moble.router = new Router();
 
-        this.router = new Router();
-        FB.init({ appId: '118094878340771' });
-        this.socket = io.connect('163.5.84.193');
-
-        FB.Event.subscribe('auth.statusChange', function(res) {
-          if (res.status === 'connected')
-            that.router.navigate('timeline', {trigger: true});
-          else
-            that.router.navigate('login', {trigger: true});
+        moble.on('user:check_connection', function(auth) {
+          socket.emit('check_connection', auth);
         });
 
-        this.socket.emit('check_connection', {FBId: '5625', token: '23456'});
+        moble.on('user:connected', function() {
+          socket.emit('timelineContent', moble.user.toJSON());
+          moble.router.navigate('timeline', true);
+        });
+
+        moble.on('user:disconnect', function() {
+          moble.router.navigate('login', true);
+        });
+
+        Backbone.history.start();
+        moble.router.navigate('login', true);
       }
-    }
+    };
   });
