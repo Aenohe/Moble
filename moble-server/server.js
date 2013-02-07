@@ -2,9 +2,9 @@ var express = require('express'),
     app = express.createServer(express.logger()),
     io = require('socket.io').listen(app);
 
-    console.log('******');
+    console.log('******\n');
 console.log(process.env.MONGOHQ_URL);
-console.log('************');
+console.log('************\n');
 
 var route = require('./url_routes');
 
