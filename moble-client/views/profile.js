@@ -59,6 +59,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
               message: 'Moble is great !',
               to: moble.user.get('FBId')
             });
+            return false;
           },
           sharing: function () {
             FB.ui({
@@ -70,6 +71,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
               caption: 'Mobling me',
               description: 'Hey, viens c\'est bien ici !'
             });
+            return false;
           }
         }),
 
