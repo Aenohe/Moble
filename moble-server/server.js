@@ -2,7 +2,9 @@ var express = require('express'),
     app = express.createServer(express.logger()),
     io = require('socket.io').listen(app);
 
-var route = require('./url_routes');
+console.log('******');
+    console.log(process.env.MONGOHQ_URL);
+console.log('******');
 
 app.configure(function () {
   app.use(express.static(__dirname + '/../moble-client'));
@@ -12,6 +14,8 @@ io.configure(function () {
   io.set("transports", ["xhr-polling"]); 
   io.set("polling duration", 10); 
 });
+
+var route = require('./url_routes');
 
 var port = process.env.PORT; // Use the port that Heroku provides or default to 5000
 app.listen(port, function() {
