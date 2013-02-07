@@ -1,0 +1,14 @@
+{
+  "name":    "Moble",
+  "version": "0.0.1",
+  "description": "Moble Application",
+  "dependencies": {
+    "express": "~2.5.8",
+    "socket.io": "~0.9.6",
+    "mongoose": "~2.2.3"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm":  "1.1.x"
+  }
+}
