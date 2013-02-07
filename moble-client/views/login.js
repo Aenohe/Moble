@@ -13,11 +13,7 @@ define(['facebook', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!temp
           toLogin: function() {
             window.location = "https://facebook.com/dialog/oauth?" + 
             "client_id= 118094878340771" + 
-<<<<<<< HEAD
             "&redirect_uri=https://moble.herokuapp.com/" + 
-=======
-            "&redirect_uri=http://goblish.com/Moble/" + 
->>>>>>> ae159cfc3eefa1d0f5a00d814ab8721e96c0c5da
             "&response_type=code" + 
             "&scope=email";
             return false;
@@ -51,11 +47,7 @@ define(['facebook', 'jquery', 'underscore', 'backbone', 'handlebars', 'text!temp
           toLogin: function() {
             window.location = "https://facebook.com/dialog/oauth?" + 
             "client_id= 118094878340771" + 
-<<<<<<< HEAD
             "&redirect_uri=https://moble.herokuapp.com/" + 
-=======
-            "&redirect_uri=http://goblish.com/Moble/" + 
->>>>>>> ae159cfc3eefa1d0f5a00d814ab8721e96c0c5da
             "&response_type=code" + 
             "&scope=email";
             this.$el.addClass('loading');
