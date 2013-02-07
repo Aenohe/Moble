@@ -1,4 +1,4 @@
-/*
+
 var db = require('./db_management');
 
 function check_events(socket) {
@@ -76,4 +76,3 @@ function disconnect_db() {
 
 exports.check_events = check_events;
 exports.disconnect_db = disconnect_db;
-*/
