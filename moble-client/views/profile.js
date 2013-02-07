@@ -63,9 +63,9 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
           sharing: function () {
             FB.ui({
               method: 'feed',
-              redirect_uri: 'http://goblish.com/Moble#profile',
-              link: 'http://goblish.com/Moble',
-              picture: 'http://fbrell.com/f8.jpg',
+              redirect_uri: 'https://moble.herokuapp.com/#profile',
+              link: 'https://moble.herokuapp.com/',
+              picture: 'https://moble.herokuapp.com/img/base-icon.png',
               name: 'Moble',
               caption: 'Mobling me',
               description: 'Hey, viens c\'est bien ici !'
