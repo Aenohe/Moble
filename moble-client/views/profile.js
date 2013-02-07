@@ -44,8 +44,8 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
           template: Handlebars.compile($('#friend', tmpl).html()),
           events: {
             'click': 'invite',
-            'click #invit-friends': 'inviting',
-            'click #share-friends': 'sharing'
+            'click .data': 'inviting',
+            'click .btn_like': 'sharing'
           },
           render: function() {
             this.$el.html(this.template(this.model.toJSON()));
