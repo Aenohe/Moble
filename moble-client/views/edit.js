@@ -34,8 +34,13 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
             'blur #date': 'updateDate',
             'click #done': 'updateDone'
           },
+          initialize: function() {
+            _.bindAll(this, 'render');
+
+            this.model.bind('change', this.render);
+          },
           render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
+            this.$el.html(this.template($.extend({}, this.model.toJSON(), { isOwner: moble.user.isOwner(this.model) })));
             return this;
           },
           updateName: function(e) {
@@ -64,6 +69,9 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
           clean: function() {
             this.undelegateEvents();
             this.$el.empty();
+          },
+          focusOn: function(id) {
+            this.$(id).focus();
           }
         });
 
@@ -80,6 +88,9 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
           },
           renderSubview: function(view, selector) {
             view.setElement(this.$(selector)).render();
+          },
+          focusOn: function(id) {
+            this.formView.focusOn(id);
           }
         });
 
@@ -95,6 +106,9 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/edit.t
       unbind: function() {
         this.headerView.undelegateEvents();
         this.contentView.undelegateEvents();
+      },
+      focusOn: function(id) {
+        this.contentView.focusOn(id);
       }
     });
   });

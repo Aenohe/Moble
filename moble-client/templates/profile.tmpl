@@ -22,23 +22,27 @@
   <script id="friend" type="text/x-handlebars">
 
     <div class="data">
+	  <ul class="actions">
+		<li><a href="#" class="btn_like"><i class="icon-thumbs-up icon-white" onClick="return false"></i></a></li>
+	  </ul>
       <img src="https://graph.facebook.com/{{FBId}}/picture" />
 	  <br>
       <span>{{fullName}}</span>
-      <i id="invit-friends" class="icon-thumbs-up icon-white"></i>
-      <i id="share-friends" class="icon-hand-up icon-white"></i>
     </div>
   </script>
 
   <script id="profile" type="text/x-handlebars">
     <img src="https://graph.facebook.com/{{FBId}}/picture" />
     <h3>{{firstName}} {{lastName}}</h3>
-    <p>{{email}}</p>
+	<br>
+    <span>{{email}}</span>
+	<br><br>
   </script>
 
   <script id="content" type="text/x-handlebars">
 	<br>
     <div id="profile"></div>
+	<p>Amis qui ne sont pas encore sur Moble...</p>
     <ul id="friends"></ul>
   </script>
 

@@ -8,8 +8,7 @@ var moble = {
   notes: null,
   /* server config */
   server: {
-    address: 'moble.herokuapp.com',
-    port: '3000'
+    address: 'moble.herokuapp.com'
   },
   /* facebook */
   facebook: {

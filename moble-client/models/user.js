@@ -28,6 +28,11 @@ define(['socket', 'jquery', 'underscore', 'backbone'],
       },
       invite: function() {
         socket.emit('invitation', {FBId: moble.user.get('FBId'), FBId_invit: this.id });
+      },
+      isOwner: function(note) {
+        if (this.get('FBId') == note.get('ownerId'))
+          return true;
+        return false;
       }
     });
   });

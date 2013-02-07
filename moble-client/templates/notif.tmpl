@@ -1,20 +1,18 @@
-
 <div>
-
-  <script id='onNoteCreated' type="text/x-handlebars">
-    <p>A new note created successfully</p>
-  </script>
   <script id='onNoteRemoved' type="text/x-handlebars">
-    <p>Note ({{name}}) removed</p>
+    <img src="https://graph.facebook.com/{{FBId}}/picture" />
+    <p>{{name}} a &eacute;t&eacute; jet&eacute;e.</p>
   </script>
   <script id='onNoteUpdated' type="text/x-handlebars">
-    <p>Note ({{name}}) updated</p>
+    <p>{{name}} vient d'&ecirc;tre modifi&eacute;e.</p>
   </script>
   <script id='onNoteShared' type="text/x-handlebars">
-    <p>Note ({{name}}) shared with you</p>
+    <img src="https://graph.facebook.com/{{FBId}}/picture" />
+    <p>La note {{name}} vient de vous &ecirc;tre partag&eacute;e.</p>
   </script>
   <script id="onFriendConnected" type="text/x-handlebars">
     <img src="https://graph.facebook.com/{{FBId}}/picture" />
-    <p>{{firstName}} {{lastName}} is connected</p>
+    <p>{{firstName}} {{lastName}} vient de se connecter.</p>
   </script>
 </div>
+

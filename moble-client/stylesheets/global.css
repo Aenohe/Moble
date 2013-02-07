@@ -79,6 +79,57 @@ input, textarea {
   max-width: 400px;
 }
 
+p {
+	color: white;
+	font-weight: bold;
+	padding: 10px;
+	background-color: #4671d5;
+}
+
+p > input#name {
+	margin-bottom: 0;
+}
+
+#notif {
+  display: none;
+  width: 100%;
+  position: fixed;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba(70, 113, 213, 0.6);
+  -webkit-box-sizing: border-box;
+  -khtml-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 2px solid #4671d5;
+  border-top: none;
+  -webkit-border-bottom-left-radius: 10px;
+  -khtml-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-bottom-left-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -khtml-border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+#notif > img {
+	float: left;
+}
+
+#notif > p {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 16px;
+  margin-bottom: 0;
+  padding: 0;
+  background: none;
+}
+
+#date {
+  width: 150px;
+}
+
 #content {
   margin-bottom: 40px;
   text-align:center;
@@ -130,16 +181,12 @@ input[type="checkbox"]:checked + label span {
 }
 
 .note {
-  text-align: center;
-  min-width: 95%;
+  text-align: left;
 }
 
 .note h3 {
-  width: 50%;
-  height: 72px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  wrap-word: break-word;
+  vertical-align: middle;
+  word-wrap: break-word;
 }
 
 .note.done {
@@ -152,13 +199,14 @@ input[type="checkbox"]:checked + label span {
 
 ul#friends {
   display: table;
-  text-align: justify;
+  margin: auto;
+  text-align: center;
 }
 
 .friend {
   display: table-cell;
   vertical-align: top;
-  width: 130px;
+  width: 120px;
   display: inline-block;
   text-align: center;
 }
@@ -180,7 +228,13 @@ h3 {
   width: 100%;
 }
 
+.actions {
+  display: inline-block;
+  width: 100%;
+}
+
 .actions li {
+  float: right;
   display: inline-block;
   width: 20px;
   height: 20px;
