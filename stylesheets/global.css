@@ -95,7 +95,6 @@ p > input#name {
   width: 100%;
   position: fixed;
   text-align: center;
-  vertical-align: middle;
   padding: 10px;
   background-color: rgba(70, 113, 213, 0.6);
   -webkit-box-sizing: border-box;
@@ -119,6 +118,8 @@ p > input#name {
 }
 
 #notif > p {
+  display: inline-block;
+  vertical-align: middle;
   font-size: 16px;
   margin-bottom: 0;
   padding: 0;
