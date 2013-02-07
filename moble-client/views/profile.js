@@ -56,7 +56,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
           },
           inviting: function () {
             alert('toto');
-            console.log($(this).children('img:first').attr('id'));
+            console.log($('img:first', this).attr('id'));
             /*
             FB.ui({method: 'apprequests',
               message: 'Moble is great !',
