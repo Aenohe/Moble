@@ -2,7 +2,11 @@ var users_management = require('./User'),
 		mongoose = require('mongoose'),
 		https = require('https');
 
+<<<<<<< HEAD
 mongoose.connect('mongodb://localhost/app11473320');
+=======
+mongoose.connect('mongodb://heroku:sftwc42@linus.mongohq.com:10061/app11473320');
+>>>>>>> ae159cfc3eefa1d0f5a00d814ab8721e96c0c5da
 var Schema = mongoose.Schema;
 
 mongoose.model('User', new Schema({ 

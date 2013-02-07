@@ -1,0 +1,63 @@
+
+
+<div>
+
+  <script id="navbar-right" type="x-handlebars">
+    
+    <li><a href="#timeline"><i class="icon-arrow-left icon-white"></i></a></li>
+  </script>
+
+  <script id="header" type="text/x-handlebars">
+
+    <div class="navbar navbar-fixed-bottom navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+          <a href="#" class="brand"><img src="img/moble-icon.png" alt="Moble"/></a>
+          <ul id="navbar" class="nav"></ul>
+          <ul id="navbar-right" class="nav pull-right"></ul>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script id="friend" type="text/x-handlebars">
+
+    <div class="data">
+      <img src="https://graph.facebook.com/{{FBId}}/picture" />
+	  <br>
+<<<<<<< HEAD
+      <span>{{fullName}}</span>
+      <i id="invit-friends" class="icon-thumbs-up icon-white"></i>
+      <i id="share-friends" class="icon-hand-up icon-white"></i>
+    </div>
+  </script>
+
+  <script id="profile" type="text/x-handlebars">
+    <img src="https://graph.facebook.com/{{FBId}}/picture" />
+    <h3>{{firstName}} {{lastName}}</h3>
+    <p>{{email}}</p>
+  </script>
+
+  <script id="content" type="text/x-handlebars">
+=======
+      <span>{{fullName}}</span>
+      <i id="invit-friends" class="icon-thumbs-up icon-white"></i>
+      <i id="share-friends" class="icon-hand-up icon-white"></i>
+    </div>
+  </script>
+
+  <script id="profile" type="text/x-handlebars">
+
+    <img src="https://graph.facebook.com/{{FBId}}/picture" />
+    <h3>{{firstName}} {{lastName}}</h3>
+    <p>{{email}}</p>
+  </script>
+
+  <script id="content" type="text/x-handlebars">
+>>>>>>> pending
+	<br>
+    <div id="profile"></div>
+    <ul id="friends"></ul>
+  </script>
+
+</div>
