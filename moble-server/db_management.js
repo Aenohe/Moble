@@ -102,7 +102,6 @@ function create_note(infos, socket)
 		 	else
 		 		nnote.name = 'Mysterious note!';
 			nnote.save(function (err, note) {
-				console.log(note.ownerId);
 			socket.emit('createNote', note);
 			});
 		 }
@@ -170,7 +169,6 @@ function update_note_price(infos, socket)
  			{
  				if ((note.sharedTo.indexOf(users[i].id) >= 0 || users[i].id == note.ownerId) && users[i].id != infos.FBId)
  				{
- 					//console.log(users[i].id+" / "+infos.FBId);
  					users[i].socket.emit('onNoteUpdated',note);
  				}
  			}
@@ -210,7 +208,6 @@ function update_note_date(infos, socket)
 	searched_note.findOne({_id: infos.note_id, ownerId: infos.FBId}, function (err, note) {
 		if (note != null)
 		{
-			console.log(infos.date);
 			note.date = infos.date;
  			note.save(function (err){	
  			});
@@ -290,7 +287,6 @@ function do_note(infos, socket)
 						note.done = infos.FBId;
 						note.doneDate = new Date();
 						note.save(function (err){
-							console.log(err);
 				 			for (var i = 0; i < users.length; i++)
 				 			{
 				 				if ((note.sharedTo.indexOf(users[i].id) >= 0 || users[i].id == note.ownerId) && users[i].id != infos.FBId)
@@ -323,8 +319,6 @@ function undo_note(infos, socket)
  			{
  				if ((note.sharedTo.indexOf(users[i].id) >= 0 || users[i].id == note.ownerId) && users[i].id != infos.FBId)
  				{
- 					console.log('undo_note onNoteUpdated');
-					console.log(users[i].id);
  					users[i].socket.emit('onNoteUpdated',note);
  				}
  			}
@@ -346,8 +340,6 @@ function undo_note(infos, socket)
 		 			{
 		 				if ((note.sharedTo.indexOf(users[i].id) >= 0 || users[i].id == note.ownerId) && users[i].id != infos.FBId)
 		 				{
-		 					console.log('undo_note onNoteUpdated');
-							console.log(users[i].id);
 		 					users[i].socket.emit('onNoteUpdated',note);
 		 				}
 		 			}
@@ -367,32 +359,24 @@ function undo_note(infos, socket)
 
 function	share_note(ids, socket)
 {
-	console.error('begin !');
 	var searched_id =  mongoose.model('User');
 	searched_id.findOne({"FBId" : ids.FBId_invit}, function (err, user) { 
 		 if (user != null)
 		 {
-		 	console.error('user ok');
 		 	var searched_note = mongoose.model('Notes');
 			searched_note.findOne({_id: ids.note_id}, function (err, note) {
 				if (note != null)
 				{
-					console.error('note ok');
 					if (note.ownerId != ids.FBId_invit)
 					{
-						console.error('user ! id_fbinvit');
 						if (note.sharedTo.indexOf(ids.FBId_invit) >= 0)
 						{
-							console.error('user shared');
 							note.sharedTo.splice(note.sharedTo.indexOf(ids.FBId_invit), 1);
 							note.save(function (err){	
 							for (var i = 0; i < users.length; i++)
  							{
  								if (users[i].id == ids.FBId_invit)	
  								{
- 									console.log('on remove note!!!!');
- 									console.log(users[i].id);
- 									console.log('----------');
  									users[i].socket.emit('onNoteRemoved',note);
  								}
  							}
@@ -406,8 +390,6 @@ function	share_note(ids, socket)
  							{
  								if (users[i].id == ids.FBId_invit)	
  								{
- 									console.log('on shared note!!');
- 									console.log(users[i].id);
  									users[i].socket.emit('onNoteShared',note);
  								}
  							}
