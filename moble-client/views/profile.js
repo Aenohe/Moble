@@ -64,7 +64,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
               message: 'Moble is great !',
               to: $(this).attr('id');
             });
-*/
+            */
             return false;
           },
           sharing: function () {
