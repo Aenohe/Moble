@@ -367,18 +367,23 @@ function undo_note(infos, socket)
 
 function	share_note(ids, socket)
 {
+	console.error('begin !');
 	var searched_id =  mongoose.model('User');
 	searched_id.findOne({"FBId" : ids.FBId_invit}, function (err, user) { 
 		 if (user != null)
 		 {
+		 	console.error('user ok');
 		 	var searched_note = mongoose.model('Notes');
 			searched_note.findOne({_id: ids.note_id}, function (err, note) {
 				if (note != null)
 				{
+					console.error('note ok');
 					if (note.ownerId != ids.FBId_invit)
 					{
+						console.error('user ! id_fbinvit');
 						if (note.sharedTo.indexOf(ids.FBId_invit) >= 0)
 						{
+							console.error('user shared');
 							note.sharedTo.splice(note.sharedTo.indexOf(ids.FBId_invit), 1);
 							note.save(function (err){	
 							for (var i = 0; i < users.length; i++)
