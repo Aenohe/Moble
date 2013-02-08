@@ -2,10 +2,6 @@ var express = require('express'),
     app = express.createServer(express.logger()),
     io = require('socket.io').listen(app);
 
-console.log('******');
-    console.log(process.env.MONGOHQ_URL);
-console.log('******');
-
 app.configure(function () {
   app.use(express.static(__dirname + '/../moble-client'));
 });

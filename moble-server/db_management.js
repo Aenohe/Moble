@@ -60,11 +60,6 @@ function check_id(ids, socket)
 		if (users[i].id == ids.FBId)
 		{
 			users[i].socket = socket;
-			console.log('---\n');
-			console.log(users[i].socket.id);
-			console.log(ids.FBId);
-			console.log('----\n');
-			console.log('\n');
 			return;
 		}
 	}
@@ -392,6 +387,7 @@ function	share_note(ids, socket)
  								{
  									console.log('on remove note!!!!');
  									console.log(users[i].id);
+ 									console.log('----------');
  									users[i].socket.emit('onNoteRemoved',note);
  								}
  							}
