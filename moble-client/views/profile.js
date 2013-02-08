@@ -57,7 +57,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
           inviting: function (e) {
             FB.ui({method: 'apprequests',
               message: 'Moble is great !',
-              to: e.currentTarget.id;
+              to: e.currentTarget.id
             });
             return false;
           },
