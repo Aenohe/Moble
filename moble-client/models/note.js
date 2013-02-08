@@ -57,7 +57,7 @@ define(['socket', 'jquery', 'underscore', 'backbone'],
       },
       unshare: function(user) {
         this.set('sharedTo', _(this.get('sharedTo')).without(user));
-        socket.emit('unsharing', {FBId: moble.user.get('FBId'), note_id: this.id, FBId_invit: user});
+        socket.emit('sharing', {FBId: moble.user.get('FBId'), note_id: this.id, FBId_invit: user});
       },
       toggleShare: function(user) {
         if (_(this.get('sharedTo')).indexOf(user) < 0)
