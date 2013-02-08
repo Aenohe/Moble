@@ -259,7 +259,7 @@ function update_note_description(infos, socket)
 function timeline_content(infos, socket)
 {
 	var searched_note = mongoose.model('Notes');
-	searched_note.find({ownerId: infos.FBId}).exec(function (status, value) {
+	searched_note.find({$or : [{sharedTo : infos.FBId}, {ownerId: infos.FBId}]}).exec(function (status, value) {
 		socket.emit('timelineContent', value);
 	});
 }
