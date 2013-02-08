@@ -2,7 +2,7 @@ var users_management = require('./User'),
 		mongoose = require('mongoose'),
 		https = require('https');
 
-mongoose.connect('mongodb://heroku:sftwc42@linus.mongohq.com:10061/app11473320');
+mongoose.connect('mongodb://localhost/app11473320');
 var Schema = mongoose.Schema;
 
 mongoose.model('User', new Schema({ 
@@ -58,7 +58,12 @@ function check_id(ids, socket)
 	{
 		if (users[i].id == ids.FBId)
 		{
-			users[i] = new users_management.User(ids.FBId, socket);
+			users[i].socket = socket;
+			console.log('---\n');
+			console.log(users[i].socket.id);
+			console.log(ids.FBId);
+			console.log('----\n');
+			console.log('\n');
 			return;
 		}
 	}
