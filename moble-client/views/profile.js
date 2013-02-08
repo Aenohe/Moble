@@ -55,7 +55,7 @@ define(['jquery', 'underscore', 'backbone', 'handlebars', 'text!templates/profil
             this.model.invite();
           },
           inviting: function (e) {
-            console.log($(this).attr('id'));
+            console.log(e.currentTarget.id);
             alert('toto');
             console.log(e);
             console.log($(this).children('img'));
