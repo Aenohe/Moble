@@ -1,3 +1,4 @@
+
 var db = require('./db_management');
 
 function check_events(socket) {

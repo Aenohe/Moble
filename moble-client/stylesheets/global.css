@@ -1,3 +1,4 @@
+
 /* Blocage du responsive de Bootstrap */
 
 @media (max-width: 767px) {
@@ -92,6 +93,7 @@ p > input#name {
 
 #notif {
   display: none;
+  line-height: 50px;
   width: 100%;
   position: fixed;
   text-align: center;
@@ -184,6 +186,10 @@ input[type="checkbox"]:checked + label span {
   text-align: left;
 }
 
+.note > div {
+  display: inline-block;
+}
+
 .note h3 {
   vertical-align: middle;
   word-wrap: break-word;
@@ -224,18 +230,14 @@ h3 {
   padding: 0;
 }
 
-.actions-container {
-  width: 100%;
-}
-
 .actions {
+  float: right;
   display: inline-block;
-  width: 100%;
+  margin-bottom: 5px;
 }
 
 .actions li {
   float: right;
-  display: inline-block;
   width: 20px;
   height: 20px;
   border: 1px solid black;
@@ -244,7 +246,7 @@ h3 {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  margin: 0 15px;
+  margin: 0 10px;
   padding: 0 5px;
 }
 
